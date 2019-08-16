@@ -1,0 +1,42 @@
+devices: 
+  - name: waveport
+    driver: custom_devices.pangoo_devices.coronis.waveport:WaveportDevice
+    settings: 
+        port: 1
+        baudrate: 9600
+        do_waveport_initialization: True
+        log_level: "INFO"
+        
+  - name: hello_world0
+    driver: devices.hello_world_device:HelloWorldDevice
+    settings: 
+        prefix_init: "Hello "
+      
+  - name: edp_upload0
+    driver: devices.edp_upload:EDPUpload
+    settings: 
+        interval: 5
+        collection: "collection_name"
+        channels: 
+          - "waveport.request"
+          - "*xtended_string"
+
+presentations: 
+  - name: rci
+    driver: presentations.rci.rci_handler:RCIHandler
+
+  - name: console0
+    driver: presentations.console.console:Console
+
+  - name: web0
+    driver: presentations.web.web:Web
+    settings:
+    	port: 8080
+        page: "idigi_dia.html"
+    
+tracing: 
+    default_level: "debug"
+    default_handlers: 
+      - stderr
+      - file=log_DIA.txt
+          

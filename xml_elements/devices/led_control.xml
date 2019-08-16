@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="LED Control Driver">
+  <driver>devices.led_control:LEDControl</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <description>This device acts a means to control the python accessible LEDs on the device.  The driver accepts blink patterns
+that describe how the LED(s) should blink.  The pattern repeats until cleared.  Requesting a second LED pattern clears the first 
+pattern and starts the second.  All patterns stop at the end of the pattern.</description>
+  <generic_name>led0</generic_name>
+  <icon>icons/led_control.png</icon>
+  <settings>
+    <setting label="Cleared State">
+      <type>boolean</type>
+      <required>false</required>
+      <default>off</default>
+      <tooltip>The state of the LED(s) when no pattern is being run.</tooltip>
+      <yml_field>cleared_state</yml_field>
+    </setting>
+  </settings>  
+</device>

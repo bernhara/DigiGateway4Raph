@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Virtual Tank">
+  <driver>devices.tanks.virtual_tank:VirtualTank</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>Fluid Dia tank element simulated by the Dia framework. It creates the same channels than the Tank device. As it is virtual, it doesn't need any other devices or channels to work.</description>
+  <generic_name>tank_v</generic_name>
+  <icon>icons/virtual_tank.png</icon>
+  <help_url>user/devices/tanks/virtual_tank.html</help_url>
+  <settings>
+    <setting label="Volume">
+      <type>integer</type>
+      <required>true</required>
+      <default>5000</default>
+      <tooltip>Specify the volume of the tank in liters.</tooltip>
+      <yml_field>volume</yml_field>
+    </setting>
+    <setting label="Initial Level">
+      <type>integer</type>
+      <required>false</required>
+      <default>50</default>
+      <tooltip>Specify the initial level of the tank (%).</tooltip>
+      <yml_field>initial_level</yml_field>
+      <range>[0,100]</range>
+    </setting>
+    <setting label="Initial Temperature">
+      <type>float</type>
+      <required>false</required>
+      <default>12.0</default>
+      <tooltip>Specify the initial temperature of the tank (C).</tooltip>
+      <yml_field>initial_temperature</yml_field>
+      <range>[-25,50]</range>
+    </setting>
+    <setting label="Inflow rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>10</default>
+      <tooltip>Specify the flow rate for the input valve (liters/second).</tooltip>
+      <yml_field>inflow_rate</yml_field>
+    </setting>
+    <setting label="Outflow rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>20</default>
+      <tooltip>Specify the flow rate for the output valve (liters/second).</tooltip>
+      <yml_field>outflow_rate</yml_field>
+    </setting>
+    <setting label="High Level Alarm">
+      <type>integer</type>
+      <required>false</required>
+      <tooltip>Insert the minimum value of the tank level (%) to trigger a high level alarm. Leave it in blank to disable the high level alarm.</tooltip>
+      <yml_field>max_level_alarm</yml_field>
+    </setting>
+    <setting label="Low Level Alarm">
+      <type>integer</type>
+      <required>false</required>
+      <tooltip>Insert the maximum value of the tank level (%) to trigger a low level alarm. Leave it in blank to disable the low level alarm.</tooltip>
+      <yml_field>min_level_alarm</yml_field>
+    </setting>
+    <setting label="High Temperature Alarm">
+      <type>float</type>
+      <required>false</required>
+      <tooltip>Insert the minimum value of the temperature (C) to trigger a high temperature alarm. Leave it in blank to disable the high temperature alarm.</tooltip>
+      <yml_field>max_temperature_alarm</yml_field>
+    </setting>
+    <setting label="Low Temperature Alarm">
+      <type>float</type>
+      <required>false</required>
+      <tooltip>Insert the maximum value of the temperature (C) to trigger a low temperature alarm. Leave it in blank to disable the low temperature alarm.</tooltip>
+      <yml_field>min_temperature_alarm</yml_field>
+    </setting>
+  </settings>
+</device>

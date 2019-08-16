@@ -1,0 +1,78 @@
+devices: 
+  - name: alarm_clock0
+    driver: devices.alarm_clock_device:AlarmClockDevice
+
+  - name: pulse_lht_samples
+    driver: devices.transforms_device:TransformsDevice
+    settings: 
+      - name: "temperature"
+        unit: ""
+        channels: 
+          - "alarm_clock0.15_sec"
+        expr: "25"
+      - name: "humidity"
+        unit: ""
+        channels: 
+          - "alarm_clock0.minute"
+        expr: "73"
+
+  # comment        
+  - name: "4901510033047044196"
+    driver: devices.transforms_device:TransformsDevice
+    settings:
+       - name: "5240902694852906329"
+         channels:
+            - pulse_lht_samples.temperature
+         expr: c[0]
+       - name: "temperature"
+         channels:
+            - pulse_lht_samples.temperature
+         expr: c[0]
+
+  - name: "Raph_LTH_dev"
+    driver: devices.transforms_device:TransformsDevice
+    settings:
+       - name: "temperature"
+         channels:
+            - pulse_lht_samples.temperature
+         expr: c[0]                           
+
+presentations: 
+  - name: ecn_dev
+    driver: custom_presentations.ecocity.ecocity_json_presentation:EcocityJsonPresentation
+    settings: 
+        ecn_asset_id: "TheDeviceIDAsExpectedByECNAdaptor"
+        iae_rest_ip: "p-ecocite-dev.rd.francetelecom.fr"
+        iae_rest_port: "8080"
+        iae_rest_url: "/ecocity-ws/ecn-sbi"
+        channels: 
+          - "pulse_lht_samples.*"
+          
+  - name: ecn_integ
+    driver: custom_presentations.ecocity.ecocity_json_presentation:EcocityJsonPresentation
+    settings: 
+        ecn_asset_id: "5488849947379582180"
+        iae_rest_ip: "p-ecocite-integ.rd.francetelecom.fr"
+        iae_rest_port: "8080"
+        iae_rest_url: "/ecocity-ws/ecn-sbi"
+        channels: 
+          - "4901510033047044196.temperature"
+          - "Raph_LTH_dev.temperature"
+          - "4901510033047044196.humidity"
+          - "4901510033047044196.light"          
+
+  - name: console0
+    driver: presentations.console.console:Console
+
+  - name: web0
+    driver: presentations.web.web:Web
+    settings: 
+        page: "idigi_dia.html"
+        port: 9999
+
+tracing: 
+    master_level: "debug"
+    default_level: "debug"
+    default_handlers: 
+      - "stderr"
+      - "file=dia_log.txt"

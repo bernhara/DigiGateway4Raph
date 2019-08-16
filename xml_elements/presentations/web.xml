@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="Web">
+  <driver>presentations.web.web:Web</driver>
+  <is_thread>true</is_thread>
+  <description>Creates a web page showing list of available channels with their values. It supports setting new values and refreshing.
+
+It auto-updates the displayed values every `polling` seconds. If polling is 0, no auto-update occurs.</description>
+  <generic_name>web</generic_name>
+  <icon>icons/web2.png</icon>
+  <help_url>user/presentations/web.html</help_url>
+  <settings>
+    <setting label="Page">
+      <type>string</type>
+      <required>false</required>
+      <default>index</default>
+      <tooltip>Page name which will be served by this presentation module.</tooltip>
+      <yml_field>page</yml_field>
+    </setting>
+    <setting label="Port">
+      <type>integer</type>
+      <required>false</required>
+      <default>8001</default>
+      <tooltip>Port value of the HTTP server.</tooltip>
+      <yml_field>port</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Polling">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <tooltip>How often, in seconds, the channel values are refreshed. 0 means no polling.</tooltip>
+      <yml_field>polling</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Use default server">
+      <type>boolean</type>
+      <required>false</required>
+      <default>True</default>
+      <tooltip>Set this value to False if you are going to use your own HTTP server.</tooltip>
+      <yml_field>use_default_httpserver</yml_field>
+    </setting>
+    <setting label="Title">
+      <type>string</type>
+      <required>false</required>
+      <default>Dia Web Presentation</default>
+      <tooltip>Title of the web page that will be created with this presentation.</tooltip>
+      <yml_field>title</yml_field>
+    </setting>
+  </settings>
+</presentation>

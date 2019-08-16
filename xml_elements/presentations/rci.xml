@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="RCI Handler">
+  <driver>presentations.rci.rci_handler:RCIHandler</driver>
+  <is_thread>false</is_thread>
+  <description>The RCI Handler presentation allows for interaction with the DIA through RCI. It allows for channel dumps, querying a channel, and setting a channel parsing an incoming XML formatted message to determine what the user wish to do.</description>
+  <generic_name>rci</generic_name>
+  <icon>icons/rci.png</icon>
+  <help_url>user/presentations/rci.html</help_url>
+  <settings>
+    <setting label="Target Name">
+      <type>string</type>
+      <required>false</required>
+      <default>idigi_dia</default>
+      <tooltip>The target specified in the RCI request so that it gets forwarded to the handler.</tooltip>
+      <yml_field>target_name</yml_field>
+    </setting>
+  </settings>
+</presentation>

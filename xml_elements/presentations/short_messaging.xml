@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="Short Messaging">
+    <driver>presentations.short_messaging.short_messaging:ShortMessaging</driver>
+    <is_thread>true</is_thread>
+    <description>The Short Messaging presentation allows for the DIA to send short messages about channel updates and channel alarms over transports like SMS to Device Cloud or an SMS directly to a Mobile phone.
+This is useful in situations where you might like to be sent an update or an alarm when certain conditions on channel(s) occurs.
+It is also useful in situations where the Device is not accessible because it is in an area of the world where a regular network connection is not available. For example, if the Device is on a ship in the middle of the ocean.</description>
+    <generic_name>short_messaging</generic_name>
+    <icon>icons/short_messaging.png</icon>
+    <help_url>user/presentations/short_messaging.html</help_url>
+    <settings>
+        <setting label="SMS Transport">
+            <type>object</type>
+            <tooltip>Settings for the SMS Transport</tooltip>
+            <yml_field>SMS</yml_field>
+            <settings>
+                <setting label="Settings">
+                    <type>object</type>
+                    <yml_field>settings</yml_field>
+                    <settings>
+                        <setting label="Limit">
+                            <type>integer</type>
+                            <required>true</required>
+                            <default>5</default>
+                            <tooltip>Maximum amount of messages that will be sent in a given time period.</tooltip>
+                            <yml_field>limit</yml_field>
+                            <range>[0,)</range>
+                        </setting>
+                        <setting label="Limit Interval">
+                            <type>combo</type>
+                            <required>true</required>
+                            <default>day</default>
+                            <items>
+                                <item>minute</item>
+                                <item>hour</item>
+                                <item>day</item>
+                                <item>week</item>
+                                <item>month</item>
+                                <item>year</item>
+                            </items>
+                            <tooltip>This value sets the time period in which the 'Limit' value should be used</tooltip>
+                            <yml_field>limit_interval</yml_field>
+                        </setting>
+                    </settings>
+                </setting> 
+            </settings>
+        </setting>
+        <setting label="Iridium Transport">
+            <type>object</type>
+            <tooltip>Settings for the Iridium Transport</tooltip>
+            <yml_field>Iridium</yml_field>
+            <settings>
+                <setting label="Settings">
+                    <type>object</type>
+                    <yml_field>settings</yml_field>
+                    <settings>
+                        <setting label="Limit">
+                            <type>integer</type>
+                            <required>true</required>
+                            <default>5</default>
+                            <tooltip>Maximum amount of messages that will be sent in a given time period.</tooltip>
+                            <yml_field>limit</yml_field>
+                            <range>[0,)</range>
+                        </setting>
+                        <setting label="Limit Interval">
+                            <type>combo</type>
+                            <required>true</required>
+                            <default>day</default>
+                            <items>
+                                <item>minute</item>
+                                <item>hour</item>
+                                <item>day</item>
+                                <item>week</item>
+                                <item>month</item>
+                                <item>year</item>
+                            </items>
+                            <tooltip>This value sets the time period in which the 'Limit' value should be used</tooltip>
+                            <yml_field>limit_interval</yml_field>
+                        </setting>
+                    </settings>
+                </setting> 
+            </settings>
+        </setting>
+        <setting label="Clients">
+            <type>list</type>
+            <required>true</required>
+            <tooltip>List of clients that specify how one might receive Dia data.</tooltip>
+            <yml_field>clients</yml_field>
+            <content>
+            	<template label="Client">
+            		<type>object</type>
+          			<tooltip>A client is a user specification in how one might receive Dia data.</tooltip>
+          			<settings>
+	                	<setting label="Name">
+	                    	<type>string</type>
+	                    	<yml_field>name</yml_field>
+	                    	<required>true</required>
+	                    	<tooltip>Name of this client entry.</tooltip>
+	                	</setting>
+	                	<setting label="Settings">
+	                    	<type>object</type>
+	                    	<yml_field>settings</yml_field>
+	                    	<tooltip>Settings of this client entry.</tooltip>
+	                    	<settings>
+	                        	<setting label="Enabled">
+	                            	<type>string</type>
+	                            	<required>true</required>
+	                            	<default>True</default>
+	                            	<tooltip>This value sets whether the client is enabled.  The value can be 'True', 'False', or a 'device.channel' name that will point to a boolean value.</tooltip>
+	                            	<yml_field>enabled</yml_field>
+	                        	</setting>
+	                        	<setting label="Type">
+	                            	<type>combo</type>
+	                            	<required>true</required>
+	                            	<default>iDigi</default>
+	                            	<items>
+	                                	<item>iDigi</item>
+	                                	<item>Enduser</item>
+	                            	</items>
+	                            	<tooltip>This value sets the type of client.</tooltip>
+	                            	<yml_field>type</yml_field>
+	                        	</setting>
+	                        	<setting label="Transport Type">
+	                            	<type>combo</type>
+	                            	<required>true</required>
+	                            	<default>SMS</default>
+	                            	<items>
+	                                	<item>SMS</item>
+	                                	<item>Iridium</item>
+	                            	</items>
+	                            	<tooltip>This value sets the type of transport that the client will use to transmit the data to Device Cloud.  Currently, only SMS and Iridium to iDigi and Endusers are supported.</tooltip>
+	                            	<yml_field>transport</yml_field>
+	                        	</setting>
+	                        	<setting label="Number">
+	                            	<type>string</type>
+	                            	<required>true</required>
+	                            	<default></default>
+	                            	<pattern>^[0-9]*$</pattern>
+	                            	<pattern_example>19525551234</pattern_example>
+	                                <tooltip>The Phone Number that Dia should send its SMS short messages to.  The field should be only numbers, and should always start with a 1, then the area code and finally the rest of the number.  For example: 19525551234</tooltip>
+	                            	<yml_field>number</yml_field>
+	                            	<dependence type="visibility">
+	                                	<depend_element>Type</depend_element>
+	                                	<depends_on>value</depends_on>
+	                                	<expression>Enduser</expression>
+	                                	<new_value>True</new_value>
+	                            	</dependence>
+	                        	</setting>
+	                        	<setting label="Command Access">
+	                            	<type>boolean</type>
+	                            	<required>true</required>
+	                            	<default>true</default>
+	                            	<tooltip>Determines if command access is permitted.</tooltip>
+	                            	<yml_field>command_access</yml_field>
+	                            	<dependence type="visibility">
+	                                	<depend_element>Type</depend_element>
+	                                	<depends_on>value</depends_on>
+	                                	<expression>Enduser</expression>
+	                                	<new_value>True</new_value>
+	                            	</dependence>
+	                        	</setting>
+	                        	<setting label="Update Message">
+	                            	<type>string</type>
+	                            	<required>true</required>
+	                            	<default>Dia Channel Update: %c: %v %u at %h</default>
+	                            	<tooltip>Specifies the text format that should be used when an Update is sent.</tooltip>
+	                            	<yml_field>update_message</yml_field>
+	                            	<dependence type="visibility">
+	                                	<depend_element>Type</depend_element>
+	                                	<depends_on>value</depends_on>
+	                                	<expression>Enduser</expression>
+	                                	<new_value>True</new_value>
+	                            	</dependence>
+	                        	</setting>
+	                        	<setting label="Alarm Message">
+	                            	<type>string</type>
+	                            	<required>true</required>
+	                            	<default>Dia Channel ALARM! %c: %v %u at %h</default>
+	                            	<tooltip>Specifies the text format that should be used when an Alarm is sent.</tooltip>
+	                            	<yml_field>alarm_message</yml_field>
+	                            	<dependence type="visibility">
+	                                	<depend_element>Type</depend_element>
+	                                	<depends_on>value</depends_on>
+	                                	<expression>Enduser</expression>
+	                                	<new_value>True</new_value>
+	                            	</dependence>
+	                        	</setting>
+	                    	</settings>
+	                	</setting>
+	                </settings>
+                </template>
+            </content>
+        </setting>
+	<setting label="Updates">
+		<type>list</type>
+      	<required>false</required>
+      	<tooltip>The updates list is a way to have Dia "push" channel value updates to a specified location or phone number.</tooltip>
+      	<yml_field>updates</yml_field>
+      	<content>
+        	<template label="Update">
+          		<type>object</type>
+          		<tooltip>An update entry defines what channels or channel filters should be watched for changes.  If changes are seen, updates can be sent to a specified location of phone number based on an interval value given.</tooltip>
+          		<settings>
+          			<setting label="Name">
+	                    <type>string</type>
+	                    <yml_field>name</yml_field>
+	                    <required>true</required>
+	                    <tooltip>Name for this update entry</tooltip>
+	                </setting>
+	                <setting label="Settings">
+	                   	<type>object</type>
+	                   	<yml_field>settings</yml_field>
+	                   	<tooltip>Settings of this update entry</tooltip>
+	                   	<settings>
+		            		<setting label="Filter">
+		              			<type>string</type>
+		              			<required>true</required>
+		              			<default></default>
+		              			<tooltip>Sets the channel name filter to trigger on.  This setting is a 'glob' style string, which allows for using the wildcard values of '*' and '?' to create filters.</tooltip>
+		              			<yml_field>filter</yml_field>
+		            		</setting>
+		            		<setting label="Interval">
+		              			<type>integer</type>
+		              			<required>true</required>
+		              			<default>60</default>
+		              			<tooltip>Sets the interval rate (in minutes) in which to update each client in the client list.</tooltip>
+		              			<yml_field>interval</yml_field>
+		              			<range>[0,)</range>
+		            		</setting>
+		            		<setting label="Clients">
+		              			<type>list</type>
+		              			<required>true</required>
+		              			<tooltip>Sets the client list that these updates should be sent to.</tooltip>
+		              			<yml_field>clients</yml_field>
+		              			<content>
+		                			<template label="Client">
+		                  				<type>string</type>
+		                  				<tooltip>Client which will receive the updates.</tooltip>
+		                			</template>
+		              			</content>
+		            		</setting>
+		            	</settings>
+		            </setting>
+          		</settings>
+        	</template>
+      	</content>
+    </setting>
+    <setting label="Alarms">
+    	<type>list</type>
+      	<required>false</required>
+      	<tooltip>The alarms list is a way to have Dia "push" channel value updates to a specified location or phone number.</tooltip>
+      	<yml_field>alarms</yml_field>
+      	<content>
+        	<template label="Alarm">
+	         	<type>object</type>
+	          	<tooltip>An alarm entry defines what channels or channel filters should be watched for changes.  If changes are seen, an alarm can be sent to a specified location of phone number based on an alarm condition that is given.</tooltip>
+	          	<settings>
+	          		<setting label="Name">
+		        		<type>string</type>
+		            	<yml_field>name</yml_field>
+		            	<required>true</required>
+		            	<tooltip>Name for this alarm entry.</tooltip>
+		        	</setting>
+		        	<setting label="Settings">
+			        	<type>object</type>
+			            <yml_field>settings</yml_field>
+			            <tooltip>Settings of this alarm entry.</tooltip>
+			            <settings>
+				            <setting label="Filter">
+				            	<type>string</type>
+				              	<required>true</required>
+				              	<default></default>
+				              	<tooltip>Sets the channel name filter to trigger on.  This setting is a 'glob' style string, which allows for using the wildcard values of '*' and '?' to create filters.</tooltip>
+				              	<yml_field>filter</yml_field>
+				            </setting>
+				            <setting label="Condition">
+				              	<type>string</type>
+				              	<required>true</required>
+				              	<default></default>
+				              	<tooltip>Sets the condition in which this alarm should be triggered.  This value should be written as a Python expression that will be evaluated to either True of False.  To substitute the channel's current value, use %c in your expression.</tooltip>
+				              	<yml_field>condition</yml_field>
+				            </setting>
+				            <setting label="Clients">
+				              	<type>list</type>
+				              	<required>true</required>
+				              	<tooltip>Sets the client list that these updates should be sent to.</tooltip>
+				              	<yml_field>clients</yml_field>
+				              	<content>
+				                	<template label="Client">
+				                  		<type>string</type>
+				                  		<tooltip>Client which will receive the updates.</tooltip>
+				                	</template>
+				              	</content>
+				            </setting>
+	          			</settings>
+	          		</setting>
+	          	</settings>
+        	</template>
+      	</content>
+    </setting>
+  </settings>
+</presentation>

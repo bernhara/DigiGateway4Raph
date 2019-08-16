@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="DigiMesh Device Manager">
+  <driver>devices.xbee.xbee_device_manager.digimesh_device_manager:DigiMeshDeviceManager</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_unique>true</is_unique>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <information>Warning: Sleep settings for individual devices are ignored when the DigimeshDeviceManager is being used. All devices will use the DigimeshDeviceManager’s sleep settings.</information>
+  <description>DigiMesh Device Manager is a virtual device of Dia which is responsible of configuring all the DigiMesh devices declared in the YML configuration file. If you are going to declare an DigiMesh device in your Dia framework, you will need to declare and configure this device.</description>
+  <generic_name>digimesh_device_manager</generic_name>
+  <icon>icons/xbmanager2.png</icon>
+  <help_url>user/devices/xbee/digimesh_device_manager.html</help_url>
+  <settings>
+    <setting label="Worker threads">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+      </items>
+      <default>1</default>
+      <tooltip>Number of handles to manage background tasks in the Dia framework.</tooltip>
+      <yml_field>worker_threads</yml_field>
+    </setting>
+    <setting label="Persist radio configuration using skiplist">
+      <type>boolean</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>If this configuration parameter is true, the configuration file of Dia will be re-written on the device so that devices configured will be added to the "Skip config address list" so that they are not re-configured on subsequent runs of Dia.</tooltip>
+      <yml_field>update_skiplist</yml_field>
+    </setting>
+    <setting label="Sleep time">
+      <type>int</type>
+      <required>false</required>
+      <default>2000</default>
+      <tooltip>Sleep time in milliseconds for cyclic sleep. The valid range is 10 msec to 14400000 msec (4 hours).</tooltip>
+      <yml_field>sleep_time</yml_field>
+    </setting>
+    <setting label="Wake time">
+      <type>int</type>
+      <required>false</required>
+      <default>2000</default>
+      <tooltip>Wake time in milliseconds for cyclic sleep. The valid range is 69 msec to 3600000 msec (1 hour).</tooltip>
+      <yml_field>wake_time</yml_field>
+    </setting>
+    <setting label="Force DH and DL values for xbee devices.">
+      <type>str</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>Valid values for this configuration parameter are 'false', 'coordinator', and 'true'. If 'coordinator', the DH and DL values for each xbee device are set to the gateway's xbee address. If 'true', sets DH and DL values to the recommended value for digimesh networks. If 'false', DH and DL values on xbee devices are not touched during configuration.</tooltip>
+      <yml_field>dh_dl_force</yml_field>
+    </setting>
+    <setting label="Network refresh rate for DH DL values">
+      <type>str</type>
+      <required>false</required>
+      <default>config</default>
+      <tooltip>Valid values for this configuration parameter are 'none', 'config', 'once', or a time like "5 min" or "1 day". If 'config', the DH and DL values for each xbee device are set only during configuration. If 'once', the values are set during configuration and once afterwards in a broadcast. If some time interval is given, the DH and DL values are broadcast at that interval. If 'none', DH and DL values on xbee devices are not touched.</tooltip>
+      <yml_field>dh_dl_refresh_min</yml_field>
+    </setting>
+    <setting label="Skip config address list">
+      <type>list</type>
+      <required>false</required>
+      <tooltip>DigiMesh addresses appearing in this list will skip directly from the INIT state to the RUNNING state, by-passing the application of any configuration blocks.</tooltip>
+      <yml_field>skip_config_addr_list</yml_field>
+      <content> 
+        <template label="Address">
+          <type>mac</type>
+          <tooltip>MAC Address to skip in the initialization process.</tooltip>
+          <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+          <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+        </template>
+      </content>
+    </setting>
+    <setting label="Address DD map">
+      <type>table</type>
+      <required>false</required>
+      <tooltip>A map of DigiMesh addresses to DD device type values. By configuring this mapping dictionary, a nodes DD value will not have to be queried from the network before a node is configured.</tooltip>
+      <yml_field>addr_dd_map</yml_field>
+      <content>
+        <template label="Entry">
+          <identifier>
+            <type>mac</type>
+		<tooltip>The end device DigiMesh MAC address.</tooltip>
+		<default>00:11:22:33:44:55:66:77!</default>
+            <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+            <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+          </identifier>
+          <type>string</type>
+          <tooltip>The DD value of the DigiMesh end device.</tooltip>
+          <default>0x30000</default>
+          <pattern>(([\d]+)|(0x[\da-fA-F]+)){1}</pattern>
+          <pattern_example>0x000D</pattern_example>
+        </template>
+      </content>
+    </setting>
+  </settings>
+</device>

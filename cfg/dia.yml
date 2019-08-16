@@ -1,0 +1,240 @@
+# $Id: dia.yml 1476 2015-12-29 08:48:52Z orba6563 $
+#
+# This file contains the list of all DIA presentations and there configuration parameters
+#
+
+devices:
+  - name: alarm_clock0
+    driver: devices.alarm_clock_device:AlarmClockDevice
+
+  - name: pulse_lht_samples
+    driver: devices.transforms_device:TransformsDevice
+    
+  - name: hello_world0
+    driver: devices.hello_world_device:HelloWorldDevice
+    settings: 
+        prefix_init: "Hello "          
+
+  - name: xbee_device_manager0
+    driver: devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager
+    
+  - name: StationDigiLTH
+    driver: devices.xbee.xbee_devices.xbee_sensor:XBeeSensor
+    settings: 
+        xbee_device_manager: "xbee_device_manager0"
+        extended_address: "00:13:a2:00:40:8a:ce:19!"
+        sample_rate_ms: 300000
+        humidity_present: true
+        
+  - name: StationSmartCities
+    driver: custom_devices.libelium.waspmote_device:Waspmote
+    settings: 
+        xbee_device_manager: "xbee_device_manager0"
+        extended_address: "00:13:A2:00:40:76:75:4F!"
+        drop_commands_preceding_running_indication: True
+        
+  - name: libelium_lora_device_manager0
+    driver: custom_devices.libelium.lora_device_manager:LoraDeviceManager               
+    settings:
+        port: 11
+        baudrate: 38400
+        
+  - name: PS_Lora387233000
+    driver: custom_devices.libelium.lora_waspmote_device:LoraWaspmote
+    settings: 
+        lora_device_manager: "libelium_lora_device_manager0"
+        extended_address: "387233000"
+        log_level: "DEBUG"               
+
+  - name: waveport
+    driver: custom_devices.pangoo_devices.coronis.waveport:WaveportDevice
+    settings: 
+        port: 0
+        baudrate: 9600
+        do_waveport_initialization: true
+        log_level: "DEBUG"
+        
+  - name: xbee_waveport
+    driver: custom_devices.pangoo_devices.coronis.xbee_waveport:XBeeWaveportDevice
+    settings: 
+        baudrate: 9600
+        log_level: "DEBUG"
+
+  - name: rebootsmshandler
+    driver: custom_devices.pangoo_devices.smsHandler:SMSHandler
+    settings: 
+        reboot_msg: "Pangoo#AT+CFUN=1"
+        log_level: "DEBUG"
+        
+  - name: rawxbeeout
+    driver: custom_devices.pangoo_devices.zigbee.xbeerawout:XBeeRawOutDevice
+    settings:
+        log_level: "DEBUG"
+        
+  - name: pangooreqres0
+    driver: custom_devices.pangoo_devices.pangooreqres:PangooReqResDevice
+    settings:
+        destinations: 
+          - value: 0
+            device_driver_name: "waveport"
+        xbeerawout_interface:
+          - device_driver_name: "rawxbeeout"
+        log_level: "DEBUG"            
+            
+  - name: edp_upload0
+    driver: devices.edp_upload:EDPUpload
+    settings: 
+        interval: 0
+        sample_threshold: 0
+        collection: "collection_name"
+        channels: 
+          - "pangooreqres0.*"
+        filename: "pangooreqres"
+
+  - name: cosm0
+    driver: custom_presentations.orange.cosm:Cosm
+    settings:
+        cosm_host: "api.cosm.com"    
+        use_proxy: True
+        proxy_host: "localhost"
+        proxy_port: 8888
+        cosm_key: "YAONOcPmbssoHKHRaQAH1rLnCJ2SAKxLMi8wbGFqaXh0ST0g"
+        channel0: "alarm_clock0.15_sec"
+        cosm_feed_id0: 99628
+        cosm_datastream0: "zzzzzz"      
+
+  - name: ecn_formater0
+    driver: custom_devices.ecocity.ecocity_json_formater:EcocityJsonFormater
+    settings:
+        incoming_command_channel: websocket_ecn0.commands
+        ec_access_point_pub_key: K1
+        log_level: "DEBUG"
+        channels: 
+          - "StationSmartCities.*"
+        dia_channel_to_ec_sensor:
+          light: luminosity
+        dia_module_to_ec_pub_key:
+          StationSmartCities: K2                       
+
+  - name: websocket_ecn0     
+    driver: custom_devices.orange.websocketupload:websocketupload
+    settings:
+       write_channel: "some_dd.some_channel"
+       read_channel: "ecn0.json_data"
+       server_address: "localhost"
+       server_port: 8882
+       activate_tcp_keepalive: true
+       resource_uri: "/ecocity-sbi-entries/pushjson-ws/ecocity-websocket/ecn-sbi"
+       log_level: "DEBUG"
+       
+  - name: injector0
+    driver: custom_devices.orange.diasampleinjector:DIASampleInjector
+    settings:
+       log_level: "DEBUG"
+
+  - name: blink_on_command0
+    driver: custom_devices.ecocity.ecocity_blink_on_sample:EcocityBlinkOnSampleDevice
+    settings:
+        blinks: 5
+        blink_speed: 0.1
+        log_level: "DEBUG"
+        
+
+presentations: 
+  - name: alwayson
+    driver: custom_presentations.pangoo_presentations.alwayson:AlwaysOn
+    settings: 
+        destinations: 
+          - value: 0
+            device_driver_name: "waveport"
+
+        server_address: "10.193.113.32"
+        server_port: 9990
+        gateway_id: "@sim"
+        keep_alive_interval: 1
+        gateway_v1_backward_compatibility: true
+        ao_msg_size_on_7_bits: true
+        activate_tcp_keepalive: true
+        xbeerawout_interface:
+           - device_driver_name: "rawxbeeout"
+        log_level: "DEBUG"
+        
+  - name: alwaysontcp        
+    driver: custom_presentations.pangoo_presentations.alwaysontcp:AlwaysOnTCP
+    settings:
+       write_channel: "pangooreqres0.pangoo_bin_request"
+       read_channel: "pangooreqres0.pangoo_response"
+       server_address: "localhost"
+       server_port: 9999
+       gateway_id: "@sim"
+       keep_alive_interval: 10
+       activate_tcp_keepalive: true
+       ao_msg_size_on_7_bits: true
+       log_level: "DEBUG"        
+        
+  - name: orbcomm
+    driver: custom_presentations.pangoo_presentations.orbcomm:Orbcomm
+    settings: 
+        destinations: 
+          - value						: 0
+            device_driver_name			: "xbee_waveport"
+            
+        msg_size_on_7_bits			: true
+        gateway_v1_backward_compatibility	: true
+        do_waveport_initialization		: true
+        port_num						: 0
+        baudrate						: 4800
+        log_level						: "DEBUG"
+        desired_gateway					: 'GATEWAY_EUROPE'
+        def_polled 						: 'SC_POLL_MODE_IMMEDIATE'
+        def_ack_level 					: 'ACK_LEVEL_DELIVERY_ORBCOMM'
+        def_rep_or_ind 					: '1'
+        def_msg_or_ind 					: '1'
+        def_priority 					: 'PRIORITY_LVL_NORMAL'
+        def_msg_body_type 				: 'MSG_BODY_TYPE_ASCII'
+        def_serv_type 					: 'REPORTS_SERVICE_TYPE_NORMAL_PRIORITY_DELIVERY_ORBCOMM'
+        gwy_search_mode 				: 'GWY_SEARCH_MODE_0'
+        
+  - name: dtdns0
+    driver: custom_presentations.orange.dtdns:DTDNSPresentation
+    settings: 
+        hostname: "ecocitynice0935-gw"
+        dtdns_password: "Ecocity@06921"
+        use_proxy: True
+        proxy_host: localhost
+        proxy_port: 8888        
+              
+  - name: console0
+    driver: presentations.console.console:Console
+    
+  - name: web0
+    driver: presentations.web.web:Web
+    settings: 
+        page: "idigi_dia.html"
+        port: 8080
+        use_default_httpserver: True
+        title: "DIA channel manager"
+
+  - name: rci
+    driver: presentations.rci.rci_handler:RCIHandler
+    settings:
+        target_name: idigi_dia          	
+
+tracing:
+  filters:
+      - name: "*"
+        level: =critical
+        handlers:
+          - file=log_dia_critical.txt
+        stop: False
+      - name: "*"
+        level: =error
+        handlers:
+          - file=log_dia_error.txt
+        stop: False
+      - name: "*"
+        level: info
+        handlers:
+          - stderr
+        stop: False
+   

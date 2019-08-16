@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Local AIO">
+  <driver>devices.xbee.xbee_devices.xbee_local_aio:XBeeLocalAIO</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>true</is_sample_rate>
+  <description>Device that represents the analog functionality present locally on the gateway on some devices. It presents a subset of the XBee Analog Adapter driver options.</description>
+  <generic_name>localaio</generic_name>
+  <icon>icons/xbee_local_aio.png</icon>
+  <help_url>user/devices/xbee/xbee_devices/local_aio.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="Sample rate">
+      <type>integer</type>
+      <required>true</required>
+      <default>60000</default>
+      <tooltip>The sample rate of the XBee adapter in milliseconds.</tooltip>
+      <yml_field>sample_rate_ms</yml_field>
+      <range>[0,1834980000]</range>
+    </setting>
+    <setting label="Channel 1 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 1 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel1_mode</yml_field>
+    </setting>
+    <setting label="Channel 2 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 2 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel2_mode</yml_field>
+    </setting>
+    <setting label="Channel 3 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 3 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel3_mode</yml_field>
+    </setting>
+    <setting label="Channel 4 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 4 of the adapter.Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel4_mode</yml_field>
+    </setting>
+  </settings>  
+</device>

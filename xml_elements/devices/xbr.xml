@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Wall Router">
+  <driver>devices.xbee.xbee_devices.xbee_xbr:XBeeXBR</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>true</is_sample_rate>
+  <description>Digi XBee Wall Router device.
+
+XBee wall router is a small extender used to create or expand a ZigBee network. Apart from expanding the range and adding redundancy to a wireless network, it contains a light and a temperature sense that can be used for general purposes.</description>
+  <generic_name>xbr</generic_name>
+  <icon>icons/xbr2.png</icon>
+  <help_url>user/devices/xbee/xbee_devices/xbr.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee Wall router you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Sample rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>1000</default>
+      <tooltip>The sample rate of the XBee Wall Router in milliseconds.</tooltip>
+      <yml_field>sample_rate_ms</yml_field>
+      <range>(0,65535)</range>
+    </setting>
+    <setting label="Temperature Offset">
+      <type>float</type>
+      <required>false</required>
+      <default>0.0</default>
+      <tooltip>A fixed offset added to the Temperature channel, which can be used as a crude linear calibration offset.</tooltip>
+      <yml_field>offset</yml_field>
+    </setting>
+    <setting label="Degree Fahrenheit">
+      <type>boolean</type>
+      <required>false</required>
+      <default>False</default>
+      <tooltip>Change Temperature channel to Fahrenheit instead of Celsius.</tooltip>
+      <yml_field>degf</yml_field>
+    </setting>
+  </settings>
+</device>

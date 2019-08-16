@@ -1,0 +1,13 @@
+#Tue Feb 11 16:04:52 CET 2014
+Dia_path=C\:\\Program Files (x86)\\Digi\\python\\DevTools-2.1\\Dia\\Dia_2.1.1
+IP=10.193.224.36
+autocontained_project=false
+compile_sources=true
+configuration_file=ecocity_dia.yml
+device=ConnectPort X4 H
+eclipse.preferences.version=1
+remote_config_name=simul
+remove_docstrings=true
+use_Dia_defaults=true
+use_Dia_version=true
+use_current_remote_config=true

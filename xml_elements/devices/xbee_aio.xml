@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee AIO">
+  <driver>devices.xbee.xbee_devices.xbee_aio:XBeeAIO</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>true</is_sample_rate>
+  <description>XBee Analog Input/Output Adapter.</description>
+  <generic_name>aio</generic_name>
+  <icon>icons/xbee_aio.png</icon>
+  <help_url>user/devices/xbee/xbee_devices/aio.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Sleep">
+      <type>boolean</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>Determines if we should put the device to sleep between samples.</tooltip>
+      <yml_field>sleep</yml_field>
+    </setting>
+    <setting label="Sample rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>60000</default>
+      <tooltip>The sample rate of the XBee adapter in milliseconds.</tooltip>
+      <yml_field>sample_rate_ms</yml_field>
+      <range>[0,1834980000]</range>
+    </setting>
+    <setting label="Power">
+      <type>boolean</type>
+      <required>false</required>
+      <default>on</default>
+      <tooltip>True/False setting to enable/disable the power output on terminal 6 of the adapter.</tooltip>
+      <yml_field>power</yml_field>
+    </setting>
+    <setting label="Raw Value">
+      <type>boolean</type>
+      <required>false</required>
+      <default>off</default>
+      <tooltip>On makes output sample raw binary, Off for scaled output.</tooltip>
+      <yml_field>raw_value</yml_field>
+    </setting>
+    <setting label="Zero Clamp">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <tooltip>Minimum raw binary setting to call zero; if zero is disabled, else forces low values to zero.</tooltip>
+      <yml_field>zero_clamp</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Channel 1 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+        <item>Differential</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 1 of the adapter. Must be a string value comprised of one of the following:
+
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.
+\t"Differential" - +/- 2.4a differential voltage mode enabled on channel1 &amp; channel2 or channel3 &amp; channel4.</tooltip>
+      <yml_field>channel1_mode</yml_field>
+    </setting>
+    <setting label="Channel 2 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+        <item>Differential</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 2 of the adapter. Must be a string value comprised of one of the following:
+
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.
+\t"Differential" - +/- 2.4a differential voltage mode enabled on channel1 &amp; channel2 or channel3 &amp; channel4.</tooltip>
+      <yml_field>channel2_mode</yml_field>
+    </setting>
+    <setting label="Channel 3 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+        <item>Differential</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 3 of the adapter. Must be a string value comprised of one of the following:
+
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.
+\t"Differential" - +/- 2.4a differential voltage mode enabled on channel1 &amp; channel2 or channel3 &amp; channel4.</tooltip>
+      <yml_field>channel3_mode</yml_field>
+    </setting>
+    <setting label="Channel 4 mode">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+        <item>Differential</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 4 of the adapter. Must be a string value comprised of one of the following:
+
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.
+\t"Differential" - +/- 2.4a differential voltage mode enabled on channel1 &amp; channel2 or channel3 &amp; channel4.</tooltip>
+      <yml_field>channel4_mode</yml_field>
+    </setting>
+    <setting label="Awake time">
+      <type>integer</type>
+      <required>false</required>
+      <default>5000</default>
+      <tooltip>How long, in milliseconds, should the device stay awake after waking from sleep.</tooltip>
+      <yml_field>awake_time_ms</yml_field>
+      <range>[0,65535]</range>
+    </setting>
+    <setting label="Sample pre-delay">
+      <type>integer</type>
+      <required>false</required>
+      <default>1000</default>
+      <tooltip>How long, in milliseconds, to wait after waking up from sleep before taking a sample from the inputs.</tooltip>
+      <yml_field>sample_predelay</yml_field>
+      <range>[0,65535]</range>
+    </setting>
+    <setting label="Enable low battery">
+      <type>boolean</type>
+      <required>false</required>
+      <default>off</default>
+      <tooltip>Force an adapter to enable support for battery-monitor pin. It should be only enabled if adapter is using internal batteries.</tooltip>
+      <yml_field>enable_low_battery</yml_field>
+    </setting>
+  </settings>
+</device>

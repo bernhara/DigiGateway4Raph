@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+<title>%s</title>
+<link rel="stylesheet" href="/style/stylesheet.css" type="text/css">
+
+<script type="text/javascript" language="javascript">
+//<!-- %s
+//-->
+</script>
+</head>
+<body onload="get_data('?=get_data')">
+
+<!--textarea id="comment" cols="22" rows="43"
+   style='position:absolute; left:0; top: 0;'
+></textarea-->
+<div id='page-content-body' style='position:absolute; left:200px;'>
+   <div class='page-heading' style=''>
+      <h2>Web Configuration</h2>
+   </div>
+   <div class='page-htmlcontent'>
+      <div class='tab-content'>
+         <div class='tab-content-heading' style=''>
+            <h3 class='tab-selected'> Manage channels</h3>
+         </div>
+         <div class='tab-content-body'>
+            <table id='channels_table' class='page-content-table' 
+                  cellspacing='0' cellpadding='0' summary="column headers">
+               <thead>
+                  <tr>
+                     <th class='column-header' align=center> &nbsp; </th>
+                  </tr>
+               </thead>
+               <tbody>
+               </tbody>
+            </table>
+            <div class='form-buttons'>
+               <div class='standard-custom'>
+               <table width="740" summary="channels">
+               <tr>
+                  <td align="left">
+                     <INPUT TYPE='button' NAME='save' VALUE='Apply Changes'
+                           onclick="send_changes()">
+                  <td align="right">
+                     <INPUT TYPE='button' NAME='save' VALUE='Refresh All'
+                           onclick="refresh_all()">
+               </tr>
+               </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</body>
+</html>

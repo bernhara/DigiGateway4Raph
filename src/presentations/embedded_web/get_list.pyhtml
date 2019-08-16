@@ -1,0 +1,27 @@
+<script>
+<% from common.types.boolean import Boolean %>
+<% try: %>
+	<% for e in  request["args"]['own'].split(","): %>
+		if(!$("ec-<%=e%>").hasFocus()){
+                        <% sample = request["cm"].channel_get(e).get() %>
+			$("ec-<%=e%>").value = "<%= "%s %s" % (str(sample.value), sample.unit) %>";
+			$("ec-<%=e%>.debug").innerHTML = "";
+	    	<% if request["cm"].channel_get(e).type() == Boolean: %>
+	           <% if request["cm"].channel_get(e).get().value: %>
+	               $('sn-<%=e%>').show();
+	               $('sf-<%=e%>').hide();
+	           <% end %>
+	           <% else: %>
+	               $('sn-<%=e%>').hide();
+	               $('sf-<%=e%>').show();          
+	           <% end %>
+	    	<% end %>
+    	}
+    <% end %>	
+<% end %>
+<% except Exception,detail: %>
+	$("ec-<%=e%>").value = "";
+	$("ec-<%=e%>.debug").innerHTML = "<%= detail %>";
+<% end %>
+
+</script>

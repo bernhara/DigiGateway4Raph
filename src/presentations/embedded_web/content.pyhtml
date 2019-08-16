@@ -1,0 +1,107 @@
+<% import channels.channel_source_device_property as dev_props %>
+<% from common.types.boolean import Boolean %>
+<% get_list = [] %>
+<% for entry in request["sorted_table"]: %>
+ <% device, channels = entry %>
+<div class="tab-content">
+ <div class="tab-content-heading" onclick="$('<%= device %>').toggle();$('to-<%= device %>').toggle();$('tc-<%= device %>').toggle()">
+  <img style="display:none" id='to-<%= device %>' alt="Tab Open" src="/img/tabopen.gif"/><img id='tc-<%= device %>' alt="Tab Close" src="/img/tabclose.gif"/>
+   <h3 class="tab-selected"> <%= device %></h3>
+ </div>
+</div>
+ <div style="display:none" id="<%= device %>"> 
+  <table cellspacing="5" cellpadding="0">
+  <tbody>
+  <% for entry in channels: %>
+    <tr>
+      <td class="field-label">
+        <%=entry[0]%>:
+      </td>
+      <td class="field-spacing"> </td>
+      <td class="field-input">
+        
+        <% chan_id = "%s.%s"%(device,entry[0]) %>
+        <div id="fir-<%=chan_id%>" style="display:none"></div>
+        <% chan = request["cm"].channel_get("%s.%s"%(device,entry[0])) %>
+        <% path_loc = request["page_setting"] %>
+        
+        <% en = "style='border:none;padding-right:4px'" %>
+        <% if chan.perm_mask() & dev_props.DPROP_PERM_SET: %>
+          <% en="style='border:1px solid #007;padding-left:3px'" %>
+        <% end %>
+        <% else: %>
+          <% en=en+" onfocus='blur(this)' "%>
+        <% end %>
+       
+        <% if chan.type() == Boolean: %>
+            <div style="display:none">
+                <input type="text" value="<%=entry[1]%>" maxlength="1" size="1" name="<%=entry[0]%>" id="ec-<%=chan_id%>" onfocus="blur(this)"  />
+            </div>
+            <% add1 = "" %>
+            <% add2 = "" %>
+            <% if chan.perm_mask() & dev_props.DPROP_PERM_SET: %>
+                <% add1 = "onclick=\"toggle(this);$('sf-%s').toggle();new Ajax.Updater('fir-%s','/%s?controller=set&own=ec-%s&val=0',{method:'get',evalScripts: true})  \""%(chan_id,chan_id,path_loc,chan_id) %>
+                <% add2 = "onclick=\"this.toggle();$('sn-%s').toggle();new Ajax.Updater('fir-%s','/%s?controller=set&own=ec-%s&val=1',{method:'get',evalScripts: true})  \""%(chan_id,chan_id,path_loc,chan_id) %>
+                <% get_list.append( str(chan_id) ) %>
+            <% end %>
+            <% elif chan.perm_mask() & dev_props.DPROP_PERM_GET and not (chan.options_mask() & dev_props.DPROP_OPT_DONOTDUMPDATA): %>
+                <% get_list.append( str(chan_id) ) %>
+            <% end %>
+            <img style="display:none" id='sn-<%=chan_id%>' src="/img/on.png" <%= add1 %> />
+            <img id='sf-<%=chan_id%>' src="/img/off.png" <%= add2 %> />
+        <% end %>
+        <% else: %>
+            <input type="text" value="<%=entry[1]%>" maxlength="64" size="48" name="<%=entry[0]%>" id="ec-<%=chan_id%>" <%= en %> />
+               
+            <% if chan.perm_mask() & dev_props.DPROP_PERM_GET and not (chan.options_mask() & dev_props.DPROP_OPT_DONOTDUMPDATA): %>
+              <% if not chan.perm_mask() & dev_props.DPROP_PERM_SET: %>
+                 <% get_list.append( str(chan_id) ) %>
+              <% end %>
+            <% end %>
+            <% if chan.perm_mask() & dev_props.DPROP_PERM_SET: %>
+                    <script>
+                       new Form.Element.Observer('ec-<%=chan_id%>', 1, 
+                              function(element, value) {
+                                new Ajax.Updater('fir-<%=chan_id%>','/<%=path_loc%>?controller=set&own=ec-<%=chan_id%>&val='+$('ec-<%=chan_id%>').value,{method:'get',evalScripts: true})
+                               }
+                        )
+                    </script>
+            <% end %>
+            <% if chan.perm_mask() & dev_props.DPROP_PERM_REFRESH  and not (chan.options_mask() & dev_props.DPROP_OPT_DONOTDUMPDATA): %>
+              <input type=button value="update" 
+                onclick="new Ajax.Updater('fir-<%=chan_id%>','/<%=path_loc%>?controller=refresh&own=ec-<%=chan_id%>',{method:'get',evalScripts: true})"/>
+            <% end %>
+         <% end %>
+        <small id="ec-<%=chan_id%>.debug" style="color:red"></small>
+      </td>
+    </tr>
+
+  <% end %>
+  </tbody>
+  </table>
+ </div>
+<% end %>
+<div id="updatepanel" style="display:none"></div>
+
+<script type=javascript>
+
+ $('<%=request["sorted_table"][0][0]%>').toggle();
+ $('to-<%=request["sorted_table"][0][0]%>').toggle();
+ $('tc-<%=request["sorted_table"][0][0]%>').toggle();
+
+new Ajax.PeriodicalUpdater('updatepanel','/<%=path_loc%>',{method:'post', parameters: {own: "<%= ",".join(get_list) %>", controller:"get_list"}, evalScripts: true,frequency:2,decay:1})
+a = <%= get_list %>;
+for(i=0; i<a.length;i++){
+   elem = $('ec-'+a[i]);
+   elem.focused = false;
+   elem.hasFocus = function() {
+      return this.focused;
+   };
+   elem.onfocus=function() {
+      this.focused=true;
+   };
+   elem.onblur=function() {
+      this.focused=false;
+   };
+}
+</script>

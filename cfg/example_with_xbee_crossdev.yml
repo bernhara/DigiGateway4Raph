@@ -1,0 +1,110 @@
+devices:
+
+  - name: zigbee_device_manager0
+    driver: devices.xbee.xbee_device_manager.zigbee_device_manager:ZigBeeDeviceManager
+#    settings:
+#        dh_dl_force: coordinator
+    
+  - name: LTH1
+    driver: devices.xbee.xbee_devices.xbee_sensor:XBeeSensor
+    settings: 
+        xbee_device_manager: "zigbee_device_manager0"
+        extended_address: "00:13:a2:00:40:8a:ce:19!"
+        sample_rate_ms: 120000
+        humidity_present: true
+
+  - name: alarm_clock0
+    driver: devices.alarm_clock_device:AlarmClockDevice
+
+#  - name: settings0
+#    driver: devices.settings_device:SettingsDevice    
+
+  - name: SimulLibelium
+    driver: devices.transforms_device:TransformsDevice
+    settings: 
+       - name: "dust"
+         channels: 
+#           - "alarm_clock0.15_sec"
+           - "alarm_clock0.15_min"
+         expr: "67"
+#       - name: "temperature"
+#         channels: 
+#           - "alarm_clock0.15_sec"
+#         expr: "26"
+#       - name: "humidity"
+#         channels: 
+#           - "alarm_clock0.15_sec"
+#         expr: "68"
+#       - name: "light"
+#         channels:
+#           - "alarm_clock0.15_sec"
+#         expr: "69"
+        
+  - name: websocket_ecn0     
+    driver: custom_devices.orange.websocketupload:websocketupload
+    settings:
+       write_channel: "pangooreqres0.pangoo_bin_request"
+       read_channel: "ecn_jsonformater0.json_data"
+       server_address: "localhost"
+       server_port: 8882
+#       gateway_id: "@sim"
+       gateway_dyndns_name_prefix: toto       
+       gateway_dyndns_name_suffix: -ecn-gateway       
+       keep_alive_interval: 0
+       activate_tcp_keepalive: true
+       resource_uri: "/ecocity-websocket/ecn-sbi"
+       #!!! resource_uri: "/ecocity-ws/ecn-sbi"
+       log_level: "DEBUG"   
+                    
+  - name: ecn_jsonformater0
+    driver: custom_devices.ecocity.ecocity_json_formater:EcocityJsonFormater
+    settings:
+        ec_access_point_pub_key: "K_raph_1"
+        log_level: "DEBUG"
+        channels: 
+          - "SimulLibelium.*"
+          - "LTH1.*"
+        channel_to_ec_sensor:
+          light: luminosity
+        dia_module_to_ec_pub_key:
+          SimulLibelium: K_raph_2
+          LTH1: K_raph_3
+          
+presentations: 
+
+#  - name: mailAtBoot
+#    driver: presentations.smtp.smtp:SMTPHandler
+#    settings:
+#      to_address: "raphael.bernhard@orange.com"
+#      from_address: "raphael.bernhard@orange.com"
+#      subject: "REBOOT: ecocty GW"
+#      server_address: mailhost.rd.francetelecom.fr
+#      port: 2525
+#      monitored_channel: "ecn_jsonformater0.software_version"
+        
+  - name: console0
+    driver: presentations.console.console:Console
+
+  - name: web0
+    driver: presentations.web.web:Web
+    settings: 
+        page: "idigi_dia.html"
+        port: 7777
+        
+tracing:
+  filters:
+      - name: "*"
+        level: =critical
+        handlers:
+          - file=log_dia_critical.txt
+        stop: False
+      - name: "*"
+        level: =error
+        handlers:
+          - file=log_dia_error.txt
+        stop: False
+      - name: "*"
+        level: debug
+        handlers:
+          - stderr
+        stop: False        

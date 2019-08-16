@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="NMEA GPS">
+  <driver>devices.gps.gps:GPS</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>NMEA-0183 based GPS stream device. Extracts and channelises information from an NMEA-0183 compatible serially attached GPS. This driver will currently run on Digi devices and other Python platforms which provide the termios module. This means that it does not currently run on a Windows PC.</description>
+  <generic_name>gps</generic_name>
+  <icon>icons/gps.png</icon>
+  <help_url>user/devices/gps.html</help_url>
+  <settings>
+    <setting label="Serial device">
+      <type>string</type>
+      <required>false</required>
+      <default>/gps/0</default>
+      <tooltip>Name of the device (port) used to communicate with the GPS. Notice that before launching this project you should have configured the serial port profile to GPS in the ConnectPort. To do so open the Digi product's Web interface and select the "Configuration | Serial Port" option on the left, then set the "Serial Port Profile" to GPS.</tooltip>
+      <yml_field>serial_device</yml_field>
+    </setting>
+    <setting label="Sample Rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>60</default>
+      <tooltip>The sample rate, in seconds, in which the GPS should be queried and have the resulting data be parsed.  NOTE:  Due to hardware limitations, it is HIGHLY recommended keeping this value at or above 60 seconds on an ConnectPort X3 based platform.  On non-ConnectPort X3 based platforms, this setting is ignored, and the GPS is instead polled once a second.</tooltip>
+      <yml_field>sample_rate_sec</yml_field>
+      <range>(0,)</range>
+    </setting>
+    <setting label="Serial baud rate">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>110</item>
+        <item>300</item>
+        <item>600</item>
+        <item>1200</item>
+        <item>2400</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
+        <item>128000</item>
+        <item>153600</item>
+        <item>230400</item>
+        <item>256000</item>
+        <item>460800</item>
+        <item>921600</item>
+      </items>
+      <default>4800</default>
+      <tooltip>Serial port baud rate.  NOTE: For the ConnectPort X3 based products, this option is ignored</tooltip>
+      <yml_field>serial_baud</yml_field>
+    </setting>
+  </settings>  
+</device>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="SMTP">
+  <driver>presentations.smtp.smtp:SMTPHandler</driver>
+  <is_thread>true</is_thread>
+  <description>This presentation is designed to monitor a specified channel and treat it as a flag to indicate whether or not to trigger an email being sent to a SMTP server.
+
+The generic intention of the email presentation is to be used with the transform device performing a calculation or a group of comparisons. If the conditions are met, an email message will be queued, provided the SMTP presentation was configured to monitor the transform device.</description>
+  <generic_name>smtp</generic_name>
+  <icon>icons/smtp.png</icon>
+  <help_url>user/presentations/smtp.html</help_url>
+  <settings>
+    <setting label="Monitored channel">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Channel containing the condition (usually a channel generated with the Transforms device) to perform the e-mail call.</tooltip>
+      <yml_field>monitored_channel</yml_field>
+    </setting>
+    <setting label="Server address">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>The IP address of the SMTP server.</tooltip>
+      <yml_field>server_address</yml_field>
+    </setting>
+    <setting label="To address">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>The email address to send the email to.</tooltip>
+      <yml_field>to_address</yml_field>
+    </setting>
+    <setting label="From address">
+      <type>string</type>
+      <required>false</required>
+      <default>digi_dia@digi.com</default>
+      <tooltip>The from address of the email.</tooltip>
+      <yml_field>from_address</yml_field>
+    </setting>
+    <setting label="Subject">
+      <type>string</type>
+      <required>false</required>
+      <default>iDigi Dia Alert</default>
+      <tooltip>The subject of the email.</tooltip>
+      <yml_field>subject</yml_field>
+    </setting>
+    <setting label="Server Port">
+      <type>integer</type>
+      <required>false</required>
+      <default>25</default>
+      <tooltip>The port of the SMTP server.</tooltip>
+      <yml_field>port</yml_field>
+      <range>[0,)</range>
+    </setting>
+  </settings>
+</presentation>

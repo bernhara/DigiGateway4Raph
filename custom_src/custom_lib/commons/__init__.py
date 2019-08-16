@@ -1,0 +1,3 @@
+# $Id: m10_sc_api_main_test.py 6725 2011-09-26 13:33:16Z vmpx4526 $
+
+PANGOO_STRING_SAMPLE_FOR_DD_ERROR = "*-*__DD_APPLICATION_LEVEL_ERROR__*-*"

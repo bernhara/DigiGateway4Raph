@@ -1,0 +1,52 @@
+devices:
+  - name: waveport
+    driver: custom_devices.pangoo_devices.coronis.waveport:WaveportDevice
+    settings: 
+        port: 0
+        baudrate: 9600
+        do_waveport_initialization: true
+        log_level: "INFO"
+
+  - name: pangooreqres0
+    driver: custom_devices.pangoo_devices.pangooreqres:PangooReqResDevice
+    settings:    
+        gateway_v1_backward_compatibility: true
+        
+  - name: software_version_edp_upload
+    driver: devices.edp_upload:EDPUpload
+    settings:
+       sample_threshold: 1
+       initial_upload: 60
+       channels:
+         - "*.software_version"
+
+presentations: 
+  - name: alwaysontcp        
+    driver: custom_presentations.pangoo_presentations.alwaysontcp:AlwaysOnTCP
+    settings:
+		write_channel: "pangooreqres0.pangoo_bin_request"
+		read_channel: "pangooreqres0.pangoo_response"
+		server_address: "s-m2m-gw.dyndns.org"
+		server_port: 5072
+		gateway_id: "@sim"
+		keep_alive_interval: 0
+		activate_tcp_keepalive: true
+		ao_msg_size_on_7_bits: true
+		log_level: "INFO"
+
+  - name: console0
+    driver: presentations.console.console:Console
+    
+  - name: web0
+    driver: presentations.web.web:Web
+    settings: 
+        page: "idigi_dia.html"
+        port: 8080
+        use_default_httpserver: True
+      	title: "DIA channel manager"
+    
+tracing: 
+    default_level: "warning"
+    default_handlers: 
+      - stderr
+      - file=log_DIA.txt

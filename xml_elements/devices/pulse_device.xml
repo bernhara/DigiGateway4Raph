@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Pulse Device">
+  <driver>devices.pulse_device:PulseDevice</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>
+  This driver has the capability of pulsing a single Boolean channel to its opposite Boolean value for a specified period of time, after which it will return to its original Boolean Value.
+  
+  The pulse_device is a virtual device driver.  It does not need to connect to any hardware peripheral.  The driver is comprised of the following features:
+  
+  \t- The initial value the channel should be set to.  This is the channels state while not pulsing.
+  \t- Setting the duration the channel should be set to the opposite initial value.
+  
+  A 'stop pulse' feature is also added for reverting settings to their initial value before they are scheduled to revert.  This is useful because if you have a long pulse and want to stop it for any reason, you will be able to.  This feature is always enabled, so you can stop the pulse at any time by setting this channel to its initial value.
+  </description>
+  <generic_name>pulse_device</generic_name>
+  <icon>icons/pulse.png</icon>
+  <settings>
+    <setting label="Duration">
+      <type>float</type>
+      <required>false</required>
+      <default>5.0 </default>
+      <tooltip>The amount of time in seconds 'pulse_channel' stays at it's changed value before returning to 'initial_value'.</tooltip>
+      <yml_field>duration</yml_field>
+      <range>(0,)</range>
+    </setting>
+    <setting label="Initial Value">
+      <type>boolean</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>The initial boolean value you want 'pulse_channel' to be set to.  The pulse will be the opposite boolean value.</tooltip>
+      <yml_field>initial_value</yml_field>
+    </setting>
+  </settings>  
+</device>

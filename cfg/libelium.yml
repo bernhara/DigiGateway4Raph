@@ -1,0 +1,37 @@
+devices: 
+  - name: xbee_device_manager
+    driver: devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager
+
+  
+
+  - name: plugsense0
+    driver: devices.xbee.xbee_devices.waspmote:Waspmote
+    settings: 
+        xbee_device_manager: "xbee_device_manager"
+        extended_address: "00:13:A2:00:40:76:75:4F!"
+        sleep: true
+
+  - name: edp_upload0
+    driver: devices.edp_upload:EDPUpload
+    settings: 
+        interval: 10000
+        sample_threshold: 3
+        channels: 
+          - "Plug_Sense.*"
+          file_count: 5
+
+presentations: 
+  - name: console0
+    driver: presentations.console.console:Console
+
+  - name: web0
+    driver: presentations.web.web:Web
+    settings: 
+        page: "idigi_dia.html"
+
+tracing: 
+    master_level: "debug"
+    default_level: "debug"
+    default_handlers: 
+      - "stderr"
+      - "file=waspmote.log"

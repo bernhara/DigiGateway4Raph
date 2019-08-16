@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Fleet I/O Driver">
+	<driver>devices.transport_fleet:Fleet_Driver</driver>
+	<is_virtual>true</is_virtual>
+	<is_xbee>false</is_xbee>
+	<is_thread>true</is_thread>
+	<is_sleep>false</is_sleep>
+	<is_sample_rate>true</is_sample_rate>
+	<description>This Fleet I/O driver for DIA. This device is a vehicle diagnostics interface for the TransPort Family and is designed for transportation and fleet applications requiring GPS, Digital I/O and ignition sense interface. 
+	</description>
+	<generic_name>fleet_driver</generic_name>
+	<icon>icons/fleet.png</icon>
+	<settings>
+		<setting label="channel1_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel1_dir</yml_field>
+		</setting>
+		<setting label="channel2_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>			
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel2_dir</yml_field>
+		</setting>		
+		<setting label="channel3_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel3_dir</yml_field>
+		</setting>
+		<setting label="channel4_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel4_dir</yml_field>
+		</setting>	
+		<setting label="sample_rate_ms">
+			<type>float</type>
+			<required>false</required>
+			<default>10000</default>
+			<tooltip>Specify the input pooling rate</tooltip>
+			<yml_field>sample_rate_ms</yml_field>
+		</setting>
+	</settings>
+</device>

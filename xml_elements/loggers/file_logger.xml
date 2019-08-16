@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<logger label="File Logger">
+  <driver>channels.logging.file_logger.file_logger:FileLogger</driver>
+  <description>Advanced logger that writes samples to a persistent storage device such as a file stored on the flash file system.</description>
+  <generic_name>file_logger</generic_name>
+  <icon>icons/file_logger.png</icon>
+  <help_url>user/loggers/file_logger.html</help_url>
+  <settings>
+    <setting label="File name">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Destination filename (i.e. "mydata.log")</tooltip>
+      <yml_field>filename</yml_field>
+    </setting>
+    <setting label="Maximum file size">
+      <type>integer</type>
+      <required>false</required>
+      <default>50</default>
+      <tooltip>Size in kilobytes of the event portion of the log. The resulting file will be larger than the size specified in order to store additional information about the system.</tooltip>
+      <yml_field>event_volume_size_k</yml_field>
+      <range>(0,)</range>
+    </setting>
+    <setting label="Event threshold">
+      <type>integer</type>
+      <required>false</required>
+      <default>128</default>
+      <tooltip>The log will store an index of the total state of the system after the configured number of events. Lower numbers will speed up random access to events in the log at the cost of decreasing the number of events that the log can store.</tooltip>
+      <yml_field>sample_index_frequency</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Include channel prefixes">
+      <type>string</type>
+      <required>false</required>
+      <default>[]</default>
+      <tooltip>If specified, determine the list of prefixes to channels that will be stored in this log.</tooltip>
+      <yml_field>include_channel_prefixes</yml_field>
+      <pattern>\[(.)+( ?, ?(.)+)*\]|\[(.+)?\]</pattern>
+      <pattern_example>[sensor0.battery, sensor0.light]</pattern_example>
+    </setting>
+    <setting label="Exclude channel prefixes">
+      <type>string</type>
+      <required>false</required>
+      <default>[]</default>
+      <tooltip>If specified, determine the list of prefixes to channels that will not be stored in this log. If both include_channel_prefixes and exclude_channel_prefixes are specified, the include list is calculated first, and then the prefixes from the exclude list are removed from the result.</tooltip>
+      <yml_field>exclude_channel_prefixes</yml_field>
+      <pattern>\[(.)+( ?, ?(.)+)*\]|\[(.+)?\]</pattern>
+      <pattern_example>[sensor0.battery, sensor0.light]</pattern_example>
+    </setting>
+  </settings>
+</logger>

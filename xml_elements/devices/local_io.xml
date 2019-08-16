@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Local IO">
+  <driver>devices.local_io:LocalIO</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>false</is_xbee>
+  <path>devices/local_io.py</path>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>Device that represents the analog and digital functionality present locally on the gateway on some devices. It presents a subset of the XBee Analog and Digital Adapter driver options.</description>
+  <generic_name>localio</generic_name>
+  <icon>icons/xbee_local_aio.png</icon>
+  <help_url>user/devices/local_io.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="Power">
+      <type>boolean</type>
+      <required>false</required>
+      <default>on</default>
+      <tooltip>True/False setting to enable/disable the power output on the local IO interface.</tooltip>
+      <yml_field>power</yml_field>
+    </setting>
+    <setting label="Sample rate">
+      <type>integer</type>
+      <required>true</required>
+      <default>60000</default>
+      <tooltip>The sample rate of the XBee adapter in milliseconds.</tooltip>
+      <yml_field>sample_rate_ms</yml_field>
+      <range>[100,6000000]</range>
+    </setting>
+    <setting label="Calibration rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>900000</default>
+      <tooltip>The calibration rate of the Local analog ports in milliseconds.</tooltip>
+      <yml_field>calibration_rate_ms</yml_field>
+      <range>[0,1834980000]</range>
+    </setting>
+    <setting label="Channel 1 mode (Analog)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 1 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel1_mode</yml_field>
+    </setting>
+    <setting label="Channel 1 mode (Digital)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>In</item>
+        <item>Out</item>
+      </items>
+      <tooltip>Operating input mode for pin 1 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"In" - pin is configured to be an input.
+\t"Out" - pin is configured to be an output.</tooltip>
+      <yml_field>channel1_dir</yml_field>
+    </setting>
+    <setting label="Channel 1 source (Digital)">
+      <type>string</type>
+      <required>false</required>
+      <default/>
+      <tooltip>If channel1_dir is configured as an output, this option setting may be specified to a "device.channel" channel name.
+
+The Boolean value of this channel will specify to logic state for pin 1 on the adapter.</tooltip>
+      <yml_field>channel1_source</yml_field>
+    </setting>
+    <setting label="Channel 2 mode (Analog)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 2 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel2_mode</yml_field>
+    </setting>
+    <setting label="Channel 2 mode (Digital)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>In</item>
+        <item>Out</item>
+      </items>
+      <tooltip>Operating input mode for pin 2 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"In" - pin is configured to be an input.
+\t"Out" - pin is configured to be an output.</tooltip>
+      <yml_field>channel2_dir</yml_field>
+    </setting>
+    <setting label="Channel 2 source (Digital)">
+      <type>string</type>
+      <required>false</required>
+      <default/>
+      <tooltip>If channel2_dir is configured as an output, this option setting may be specified to a "device.channel" channel name.
+
+The Boolean value of this channel will specify to logic state for pin 2 on the adapter.</tooltip>
+      <yml_field>channel2_source</yml_field>
+    </setting>
+    <setting label="Channel 3 mode (Analog)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 3 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel3_mode</yml_field>
+    </setting>
+    <setting label="Channel 3 mode (Digital)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>In</item>
+        <item>Out</item>
+      </items>
+      <tooltip>Operating input mode for pin 3 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"In" - pin is configured to be an input.
+\t"Out" - pin is configured to be an output.</tooltip>
+      <yml_field>channel3_dir</yml_field>
+    </setting>
+    <setting label="Channel 3 source (Digital)">
+      <type>string</type>
+      <required>false</required>
+      <default/>
+      <tooltip>If channel3_dir is configed as an output, this option setting may be specified to a "device.channel" channel name.
+
+The Boolean value of this channel will specify to logic state for pin 3 on the adapter.</tooltip>
+      <yml_field>channel3_source</yml_field>
+    </setting>
+    <setting label="Channel 4 mode (Analog)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>TenV</item>
+        <item>CurrentLoop</item>
+      </items>
+      <default>TenV</default>
+      <tooltip>Operating input mode for pin 4 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"TenV" - 0-10v input available on any channel.
+\t"CurrentLoop" - 0-20 mA current loop available on any channel.</tooltip>
+      <yml_field>channel4_mode</yml_field>
+    </setting>
+    <setting label="Channel 4 mode (Digital)">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>In</item>
+        <item>Out</item>
+      </items>
+      <tooltip>Operating input mode for pin 4 of the adapter. Must be a string value comprised of one of the following:
+      
+\t"In" - pin is configured to be an input.
+\t"Out" - pin is configured to be an output.</tooltip>
+      <yml_field>channel4_dir</yml_field>
+    </setting>
+    <setting label="Channel 4 source (Digital)">
+      <type>string</type>
+      <required>false</required>
+      <default/>
+      <tooltip>If channel4_dir is configed as an output, this option setting may be specified to a "device.channel" channel name.
+
+The Boolean value of this channel will specify to logic state for pin 4 on the adapter.</tooltip>
+      <yml_field>channel4_source</yml_field>
+    </setting>
+  </settings>  
+</device>

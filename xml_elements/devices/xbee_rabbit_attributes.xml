@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Rabbit Attributes">
+  <driver>devices.rabbit.xbee_named_attributes:XBeeNamedAttributes</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>This Dia device lets clients get and (for read/write attributes) set the remote rabbit attributes by name. Requests are sent as plain text, using the following format:
+
+/tRequests (sent to the Rabbit):
+/t/tname?          Sends the value of attribute &lt;name&gt;.
+/t/tname           Sends the value of attribute &lt;name&gt; (? operator is implied).
+/t/tname=value     Set attribute &lt;name&gt; to &lt;value&gt;.
+
+In requests, name can end with an asterisk (*) as a wildcard to match any remaining characters.  For example, "led*?" will match "led1", "led2", "led3" and "led4" (and therefore generate 4 responses). Wildcards work for setting values as well (e.g., dout*=1 to set all digital outputs to 1).
+
+Note: due to limits of the frame buffering between the BL4S100 and its XBee module, some responses may be dropped if too many attributes are requested at once (i.e., via the autorefresh web page).
+
+/tResponses (from the Rabbit):
+/t/tname!          Error response, no attribute called &lt;name&gt;.
+/t/tname!value     Error response, unable to set &lt;name&gt; to &lt;value>.
+/t/tname:value     Successful response, attribute &lt;name&gt; is set to &lt;value&gt;.Sent in response to query (?) or assign (=) operators.)</description>
+  <generic_name>rabbit_attributes</generic_name>
+  <icon>icons/xbee_rabbit_attributes.png</icon>
+  <help_url>user/devices/rabbit/attributes.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Endpoint">
+      <type>integer</type>
+      <required>True</required>
+      <tooltip>Endpoint of local and remote device.</tooltip>
+      <yml_field>endpoint</yml_field>
+    </setting>
+    <setting label="Profile">
+      <type>integer</type>
+      <required>True</required>
+      <tooltip>Profile of local and remote device.</tooltip>
+      <yml_field>profile</yml_field>
+    </setting>
+    <setting label="Cluster">
+      <type>integer</type>
+      <required>True</required>
+      <tooltip>Cluster of local and remote device.</tooltip>
+      <yml_field>cluster</yml_field>
+    </setting>
+    <setting label="Local">
+      <type>string</type>
+      <required>false</required>
+      <default>local</default>/>
+      <tooltip>Name for the local channel.</tooltip>
+      <yml_field>local</yml_field>
+    </setting>
+    <setting label="Remote">
+      <type>string</type>
+      <required>false</required>
+      <default>remote</default>/>
+      <tooltip>Name for the remote channel.</tooltip>
+      <yml_field>remote</yml_field>
+    </setting>
+    <setting label="Poll rate">
+      <type>float</type>
+      <required>false</required>
+      <default/>
+      <tooltip>The number of seconds between each IO polling.</tooltip>
+      <yml_field>poll_rate</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Attributes">
+      <type>code</type>
+      <required>true</required>
+      <default>#            led1: [type, gettable/settable, initial_value]
+#            led2: [type, gettable/settable, initial_value]
+#            led3: [type, gettable/settable, initial_value]
+#            led4: [type, gettable/settable, initial_value]
+
+#            sw1: [type, gettable/settable, initial_value]
+#            sw2: [type, gettable/settable, initial_value]
+#            sw3: [type, gettable/settable, initial_value]
+#            sw4: [type, gettable/settable, initial_value]
+
+#            ain0: [type, gettable/settable, initial_value]
+#            ain1: [type, gettable/settable, initial_value]
+
+#            uptime: [type, gettable/settable, initial_value]</default>
+      <tooltip>Attribute names become channels. The list of options (in order) are:
+
+/t- type - required; choose from str, int, or float
+/t- settable/gettable - required if initial value set, otherwise defaults to gettable. NB: these correspond to
+/t/tDPROP_PERM_SET|DPROP_PERM_REFRESH and
+/t/tDPROP_PERM_GET|DPROP_PERM_REFRESH in Dia parlance. That is, we can always request the latest value from the device.
+/t- initial value of type: defaults to "", 0, or 0.0.
+
+The '*' attribute requests that the values of all attributes be sent:
+/t*: [str, gettable, "Refresh all"]</tooltip>
+      <yml_field>attributes</yml_field>
+    </setting>
+  </settings>
+</device>

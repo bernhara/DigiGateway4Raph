@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="System device">
+  <driver>devices.system_device:SystemDevice</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>Digi system device. Collects Digi device statistics into channels.</description>
+  <generic_name>system</generic_name>
+  <icon>icons/system.png</icon>
+  <help_url>user/devices/system_device.html</help_url>
+  <settings>
+    <setting label="Update rate">
+      <type>float</type>
+      <required>false</required>
+      <default>1.0</default>
+      <tooltip>The number of seconds between each system statistics refresh.</tooltip>
+      <yml_field>update_rate</yml_field>
+      <range>(0,)</range>
+    </setting>
+  </settings>  
+</device>

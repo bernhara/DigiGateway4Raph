@@ -1,0 +1,13 @@
+<script>
+<% try: %>
+	<% e = request["args"]['own'] %>
+	<% request["cm"].channel_get(e[3:]).consumer_refresh() %>
+	$("<%=e%>").value = <%= request["cm"].channel_get(e[3:]).get().value %>;
+	$("<%=e%>.debug").value = "";
+<% end %>
+<% except Exception,detail: %>
+	$("<%=e%>").value = "";
+	$("<%=e%>.debug").innerHTML = "<%= detail %>";
+<% end %>
+
+</script>

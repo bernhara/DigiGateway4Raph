@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="CCWi9p9215 GPIO">
+  <driver>devices.ccwi9p9215_gpio:ModuleGPIOs</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>Digi CCWi9P9215 module gpios device. It collects gpios values into channels managing 31 GPIOs (from 0 to 30), that represents several CCWi9P9215 module gpios.</description>
+  <generic_name>9215gpio</generic_name>
+  <icon>icons/9215gpio.png</icon>
+  <help_url>user/devices/ccwi9p9215_gpio.html</help_url>
+  <settings>
+    <setting label="Update rate">
+      <type>float</type>
+      <required>false</required>
+      <default>0.1</default>
+      <tooltip>The number of seconds between each GPIO refresh. (s)</tooltip>
+      <yml_field>update_rate</yml_field>
+      <range>(0,)</range>
+    </setting>
+    <setting label="Input GPIOs">
+      <type>list</type>
+      <required>false</required>
+      <tooltip>The list of gpios that will be refreshed each configured update rate.</tooltip>
+      <yml_field>input_gpios</yml_field>
+      <content> 
+        <template label="GPIO">
+          <type>integer</type>
+          <tooltip>GPIO to be refreshed each update rate. GPIO number must be between 0 and 30 (both included).</tooltip>
+          <range>[0,30]</range>
+          <default_value>0</default_value>
+        </template>
+      </content>
+    </setting>
+    <setting label="Output GPIOs">
+      <type>list</type>
+      <required>false</required>
+      <tooltip>The list of gpios which their state can be set to True (1) or False (0).</tooltip>
+      <yml_field>output_gpios</yml_field>
+      <content> 
+        <template label="GPIO">
+          <type>integer</type>
+          <tooltip>GPIO which its state can be set to True (1) or False (0). GPIO number must be between 0 and 30 (both included).</tooltip>
+          <range>[0,30]</range>
+          <default_value>0</default_value>
+        </template>
+      </content>
+    </setting>
+  </settings>  
+</device>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Sensor">
+  <driver>devices.xbee.xbee_devices.xbee_sensor:XBeeSensor</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>true</is_sleep>
+  <is_sample_rate>true</is_sample_rate>
+  <description>Digi Light, Temperature and Humidity (if present) XBee Sensor.
+
+Notice this is not the XBee Watchport device.</description>
+  <generic_name>sensor</generic_name>
+  <icon>icons/xbee_sensor.png</icon>
+  <help_url>user/devices/xbee/xbee_devices/sensor.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee Sensor device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Sleep">
+      <type>boolean</type>
+      <required>false</required>
+      <default>true</default>
+      <tooltip>Determines if we should put the device to sleep between samples.</tooltip>
+      <yml_field>sleep</yml_field>
+    </setting>
+    <setting label="Sample rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>60000</default>
+      <tooltip>The sample rate of the XBee adapter in milliseconds.</tooltip>
+      <yml_field>sample_rate_ms</yml_field>
+      <range>[0,1834980000]</range>
+    </setting>
+    <setting label="Awake time">
+      <type>integer</type>
+      <required>false</required>
+      <default>1000</default>
+      <tooltip>How long, in milliseconds, should the sensor stay awake after taking a sample.</tooltip>
+      <yml_field>awake_time_ms</yml_field>
+      <range>[0,65535]</range>
+    </setting>
+    <setting label="Sample pre-delay">
+      <type>integer</type>
+      <required>false</required>
+      <default>125</default>
+      <tooltip>Determines how long, in milliseconds, should the device remain awake after waking from sleep.</tooltip>
+      <yml_field>sample_predelay</yml_field>
+      <range>[0,65535]</range>
+    </setting>
+    <setting label="Force humidity presence">
+      <type>boolean</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>Force a sensor which has not been detected to have humidity capability to having humidity capability present. Writes the devices DD device-type value as a side effect so that it will report itself as having humidity capability in the future.</tooltip>
+      <yml_field>humidity_present</yml_field>
+    </setting>
+    <setting label="Use Fahrenheit">
+      <type>boolean</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>Temperature data defaults to degree Celsius. If this setting is True, then Temperature data will be degree Fahrenheit, with the data sample units field being "F" instead of "C".</tooltip>
+      <yml_field>degf</yml_field>
+    </setting>
+    <setting label="Calibration Offset">
+      <type>float</type>
+      <required>false</required>
+      <default>0.0</default>
+      <tooltip>A fixed constant to add to the temperature channel (or subtract from if negative), which offers a simple fixed calibration. The offset is not affected by the degf setting, so 1.0 means either 1.0 C or 1.0 F.</tooltip>
+      <yml_field>offset</yml_field>
+    </setting>
+  </settings>
+</device>

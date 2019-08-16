@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Massa M3">
+  <driver>devices.vendors.massa.massa_m3:MassaM3</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_unique>false</is_unique>
+  <is_thread>false</is_thread>
+  <is_sleep>true</is_sleep>
+  <is_sample_rate>true</is_sample_rate>
+  <description>Massa Model M3 Wireless Ultrasonic Level Sensor. The following Massa M3 devices are supported: Model M3/150: 150kHz and Model M3/95: 95kHz</description>
+  <generic_name>massa_m3_</generic_name>
+  <icon>icons/vendors/massa/massa_m3.png</icon>
+  <help_url>user/devices/vendors/massa/m3.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>The name of a XBeeDeviceManager instance to manage this device.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the Massa-M3 device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Sample rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>3600</default>
+      <tooltip>The rate, in seconds, in which the device should take a sample.</tooltip>
+      <yml_field>sample_rate_sec</yml_field>
+      <range>[0,229372]</range>
+    </setting>
+    <setting label="Sleep rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>14400</default>
+      <tooltip>The rate, in seconds, for how long the device should sleep before sending the Dia driver it's stored samples.</tooltip>
+      <yml_field>sleep_rate_sec</yml_field>
+      <range>[0,1834980]</range>
+    </setting>
+    <setting label="Awake time">
+      <type>integer</type>
+      <required>false</required>
+      <default>30</default>
+      <tooltip>The rate, in seconds, for how long the device should remain awake after it awakes and sends Dia it's samples.</tooltip>
+      <yml_field>awake_time_sec</yml_field>
+      <range>[13,597]</range>
+    </setting>
+  </settings>
+</device>

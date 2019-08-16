@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Settings device">
+  <driver>devices.settings_device:SettingsDevice</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>The settings device allows users to access the configuration of the Dia system through the channel database of the system. This allows run-time viewing and modification of the configuration.
+
+Currently, this device is best used to interrogate the state of the system. Many pieces of the system do not support on-the-fly settings changes, and may not immediately reconfigure, or operate well after a settings change is performed. If that is the case, it may be necessary to restart the system before the settings changes made through the settings device take proper effect.</description>
+  <generic_name>settings_device</generic_name>
+  <icon>icons/settings.png</icon>
+  <help_url>user/devices/settings_device.html</help_url>
+  <settings/>
+</device>

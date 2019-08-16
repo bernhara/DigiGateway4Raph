@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Digi Transport GPS">
+  <driver>devices.transport_gps:GPS_Driver</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>true</is_sample_rate>
+  <description>This GPS device performs displays latitude and  longitude in degree as well as altitude in meters. 
+  </description>
+  <generic_name>gps</generic_name>
+  <icon>icons/gps.png</icon>
+  <settings>
+    <setting label="sample_rate">
+        <type>float</type>
+        <required>False</required>
+        <default>10</default>
+        <tooltip>Specify the input polling rate. The sample rate, in seconds, in which the GPS should be queried.</tooltip>
+        <yml_field>sample_rate</yml_field>
+    </setting>
+  </settings>  
+</device>

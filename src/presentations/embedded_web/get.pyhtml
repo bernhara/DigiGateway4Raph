@@ -1,0 +1,23 @@
+<script>
+<% from common.types.boolean import Boolean %>
+<% try: %>
+	<% e = request["args"]['own'] %> 
+	$("<%=e%>").value = "<%= str(request["cm"].channel_get(e[3:]).get().value) %>";
+	<% print str(request["cm"].channel_get(e[3:]).type()) %>
+	<% if request["cm"].channel_get(e[3:]).type() == Boolean: %>
+	   <% if request["cm"].channel_get(e[3:]).get().value: %>
+	       $('sn-<%=e[3:]%>').show();
+	       $('sf-<%=e[3:]%>').hide();
+	   <% end %>
+	   <% else: %>
+           $('sn-<%=e[3:]%>').hide();
+           $('sf-<%=e[3:]%>').show();	       
+	   <% end %>
+	  <% end %>
+	$("<%=e%>.debug").innerHTML = "";
+<% end %>
+<% except Exception,detail: %>
+	$("<%=e%>").value = "";
+	$("<%=e%>.debug").innerHTML = "<%= detail %>";
+<% end %>
+</script>

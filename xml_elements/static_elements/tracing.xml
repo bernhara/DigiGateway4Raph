@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<static label="Tracing">
+	<description>The tracing configuration allows fine-grained control over what and where the Dia framework reports about its internal operation while running. It is a powerful tool for closely examining particular parts of the framework and debugging new drivers.</description>
+	<driver>tracing</driver>
+	<is_unique>true</is_unique>
+	<icon>icons/file_logger.png</icon>
+	<generic_name>Tracing</generic_name>
+	<help_url>user/tracing.html</help_url>
+	<settings>
+		<setting label="Master Level">
+			<type>combo</type>
+			<required>false</required>
+			<default>notset</default>
+			<items>
+				<item>calls</item>
+				<item>debug</item>
+				<item>info</item>
+				<item>warning</item>
+				<item>error</item>
+				<item>critical</item>
+				<item>notset</item>
+			</items>
+			<tooltip>Master level value.</tooltip>
+			<yml_field>master_level</yml_field>
+		</setting>
+		<setting label="Default Level">
+			<type>combo</type>
+			<default>debug</default>
+			<items>
+				<item>calls</item>
+				<item>debug</item>
+				<item>info</item>
+				<item>warning</item>
+				<item>error</item>
+				<item>critical</item>
+			</items>
+			<required>true</required>
+			<tooltip>Default level value.</tooltip>
+			<yml_field>default_level</yml_field>
+		</setting>
+		<setting label="Default Handlers">
+			<type>list</type>
+			<required>true</required>
+			<tooltip>Default Handlers value.</tooltip>
+			<yml_field>default_handlers</yml_field>
+			<content>
+				<template label="Handler">
+					<type>string</type>
+					<tooltip>Handler element.</tooltip>
+					<pattern>(stdout)|(stderr)|(file=.+)|()</pattern>
+					<pattern_example>stdout  |  stderr  |  file=[FILE]</pattern_example>
+				</template>
+				<entry label="Handler0">
+					<value>stderr</value>
+				</entry>
+			</content>
+		</setting>
+		<setting label="Filters">
+			<type>list</type>
+			<required>false</required>
+			<tooltip>List of tracing filters.</tooltip>
+			<yml_field>filters</yml_field>
+			<content>
+				<template label="Filter">
+					<type>object</type>
+					<tooltip>Filter element.</tooltip>
+					<settings>
+						<setting label="Name">
+							<type>string</type>
+							<yml_field>name</yml_field>
+							<required>true</required>
+							<tooltip>String to match the tracer name. Character '*' can be used to match anything at the beginning or end of the string like this: *name* or *name or name*. </tooltip>
+						</setting>
+						<setting label="Level">
+							<type>string</type>
+							<yml_field>level</yml_field>
+							<required>false</required>
+							<default>notset</default>
+							<tooltip>Level of the filter. Possible values are: notset, calls, debug, info, warning, error, or critical. Values admit '>=' prefix. Combinations of several values with prefix is possible separating them with ' or '. </tooltip>
+							<pattern>(&gt;?=)?(notset|calls|debug|info|warning|error|critical)( or (&gt;?=)?(notset|calls|debug|info|warning|error|critical))*</pattern>
+							<pattern_example>debug  |  debug or warning  |  >=debug...</pattern_example>
+						</setting>
+						<setting label="Message">
+							<type>string</type>
+							<yml_field>msg</yml_field>
+							<required>false</required>
+							<tooltip>Message to filter.</tooltip>
+							<default>*</default>
+						</setting>
+						<setting label="Stop">
+							<type>boolean</type>
+							<yml_field>stop</yml_field>
+							<required>false</required>
+							<default>True</default>
+							<tooltip>Stops the filtering for a particular message after the first match.</tooltip>
+						</setting>
+						<setting label="Handlers">
+							<type>list</type>
+							<required>false</required>
+							<tooltip>Filter Handlers.</tooltip>
+							<yml_field>handlers</yml_field>
+							<content>
+								<template label="Handler">
+									<type>string</type>
+									<tooltip>Handler element.</tooltip>
+									<pattern>(stdout)|(stderr)|(file=.+)|()</pattern>
+									<pattern_example>stdout  |  stderr  |  file=[FILE]</pattern_example>
+								</template>
+							</content>
+						</setting>
+					</settings>
+				</template>
+			</content>
+		</setting>
+	</settings>
+</static>

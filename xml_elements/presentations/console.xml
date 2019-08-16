@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="Console">
+  <driver>presentations.console.console:Console</driver>
+  <is_thread>true</is_thread>
+  <description>Provides a command line interface for the DIA. All command line command definitions are given in console_interface.py. They follow the standard Python library cmd module interface.</description>
+  <generic_name>console</generic_name>
+  <icon>icons/console.png</icon>
+  <help_url>user/presentations/console.html</help_url>
+  <settings>
+    <setting label="Type">
+      <type>combo</type>
+      <required>false</required>
+      <default>tcp</default>
+      <items>
+        <item>tcp</item>
+        <item>serial</item>
+      </items>
+      <tooltip>Currently, the only supported type is tcp.</tooltip>
+      <yml_field>type</yml_field>
+    </setting>
+    <setting label="Port">
+      <type>integer</type>
+      <required>false</required>
+      <default>4146</default>
+      <tooltip>If type is set to "tcp", specifies the TCP port number to be used for the console presentation.</tooltip>
+      <yml_field>port</yml_field>
+      <range>(0,)</range>
+    </setting>
+    <setting label="Serial device">
+      <type>string</type>
+      <required>false</required>
+      <default>/com/0</default>
+      <tooltip>If type is set to "serial", this is the serial port device name that will be used.</tooltip>
+      <yml_field>device</yml_field>
+    </setting>
+    <setting label="Serial Baud Rate">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>110</item>
+        <item>300</item>
+        <item>600</item>
+        <item>1200</item>
+        <item>2400</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
+        <item>128000</item>
+        <item>153600</item>
+        <item>230400</item>
+        <item>256000</item>
+        <item>460800</item>
+        <item>921600</item>
+      </items>
+      <default>115200</default>
+      <tooltip>If type is set to "serial", this is the baud rate that will be used.</tooltip>
+      <yml_field>baudrate</yml_field>
+    </setting>
+  </settings>
+</presentation>

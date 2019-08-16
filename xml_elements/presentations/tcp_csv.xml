@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="TCP CSV">
+  <driver>presentations.tcpcsv.tcpcsv:TCPCSV</driver>
+  <is_thread>true</is_thread>
+  <description>TCPCSV Presentation is a simple TCPS client which transmits CSV channel data. Each row of the CSV data is given as:
+
+  channel_name,timestamp,value,unit
+
+Where timestamp is adjusted to GMT and given in the format:
+
+    YYYY-mm-dd HH:MM:SS</description>
+  <generic_name>tcp_csv</generic_name>
+  <icon>icons/tcp_csv.png</icon>
+  <help_url>user/presentations/tcpcsv.html</help_url>
+  <settings>
+    <setting label="Server">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>IP address or hostname to connect to.</tooltip>
+      <yml_field>server</yml_field>
+    </setting>
+    <setting label="Port">
+      <type>integer</type>
+      <required>true</required>
+      <tooltip>TCP port number to connect to.</tooltip>
+      <yml_field>port</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Interval">
+      <type>integer</type>
+      <required>false</required>
+      <default>60</default>
+      <tooltip>How often (in seconds) to emit CSV data.</tooltip>
+      <yml_field>interval</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Channels">
+      <type>list</type>
+      <required>false</required>
+      <tooltip>List of channels to include in the data set. If this setting is not given, all channels will be included.</tooltip>
+      <yml_field>channels</yml_field>
+      <content> 
+        <template label="Channel">
+          <type>string</type>
+          <tooltip>Name of the channel to include in the data set.</tooltip>
+        </template>
+      </content>
+    </setting>
+  </settings>
+</presentation>

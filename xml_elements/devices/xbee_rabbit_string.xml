@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Rabbit String">
+  <driver>devices.rabbit.xbee_string:XBeeString</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>XBee Rabbit String creates two channels. The 'local' channel is settable, and sends its value (a string) to the remote device. The 'remote' channel is gettable, and is updated when the remote device sends a string.</description>
+  <generic_name>rabbit_string</generic_name>
+  <icon>icons/xbee_rabbit_string.png</icon>
+  <help_url>user/devices/rabbit/string.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence_driver>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</dependence_driver>
+      <dependence_setting>elementName</dependence_setting>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Endpoint">
+      <type>integer</type>
+      <required>True</required>
+      <tooltip>Endpoint of local and remote device.</tooltip>
+      <yml_field>endpoint</yml_field>
+    </setting>
+    <setting label="Profile">
+      <type>integer</type>
+      <required>True</required>
+      <tooltip>Profile of local and remote device.</tooltip>
+      <yml_field>profile</yml_field>
+    </setting>
+    <setting label="Cluster">
+      <type>integer</type>
+      <required>True</required>
+      <tooltip>Cluster of local and remote device.</tooltip>
+      <yml_field>cluster</yml_field>
+    </setting>
+    <setting label="Local">
+      <type>string</type>
+      <required>false</required>
+      <default>local</default>/>
+      <tooltip>Name for the local channel.</tooltip>
+      <yml_field>local</yml_field>
+    </setting>
+    <setting label="Remote">
+      <type>string</type>
+      <required>false</required>
+      <default>remote</default>/>
+      <tooltip>Name for the remote channel.</tooltip>
+      <yml_field>remote</yml_field>
+    </setting>
+  </settings>
+</device>

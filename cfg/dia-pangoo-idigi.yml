@@ -1,0 +1,54 @@
+devices:
+  - name: waveport
+    driver: custom_devices.pangoo_devices.coronis.waveport:WaveportDevice
+    settings: 
+        port: 0
+        baudrate: 9600
+        do_waveport_initialization: False
+        log_level: "DEBUG"
+        
+  - name: pangooreqres0
+    driver: custom_devices.pangoo_devices.pangooreqres:PangooReqResDevice
+    settings:
+        gateway_v1_backward_compatibility: true    
+        log_level: "DEBUG"            
+            
+  - name: edp_upload0
+    driver: devices.edp_upload:EDPUpload
+    settings: 
+        interval: 0
+        sample_threshold: 1
+        channels: 
+          - "pangooreqres0.pangoo_response"
+        filename: "_samples_pangooreqres0"
+        file_count: 2
+
+#  - name: hello_world0
+#    driver: devices.hello_world_device:HelloWorldDevice
+#    settings: 
+#        prefix_init: "Hello "           
+
+presentations: 
+ 
+  - name: console0
+    driver: presentations.console.console:Console
+    
+  - name: web0
+    driver: presentations.web.web:Web
+    settings: 
+        page: "idigi_dia.html"
+        port: 8080
+        use_default_httpserver: True
+      	title: "DIA channel manager"
+
+  - name: rci
+    driver: presentations.rci.rci_handler:RCIHandler
+    settings:
+        target_name: idigi_dia            	
+      	
+tracing: 
+    default_level: "debug"
+    default_handlers: 
+      - stderr
+      - file=log_DIA.txt
+    

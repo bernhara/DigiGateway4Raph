@@ -1,0 +1,35 @@
+devices: 
+  - name: waveport
+    driver: custom_devices.pangoo_devices.coronis.waveport:WaveportDevice
+    settings: 
+        port: 0
+        baudrate: 9600
+        do_waveport_initialization: true
+        log_level: "INFO"
+
+presentations: 
+  - name: alwayson
+    driver: custom_presentations.pangoo_presentations.alwayson:AlwaysOn
+    settings: 
+        destinations: 
+          - value: 0
+            device_driver_name: "waveport"
+
+        server_address: "s-m2m-gw.dyndns.org"
+        server_port: 5071
+        gateway_id: "@sim"
+        keep_alive_interval: 0
+        activate_tcp_keepalive: true
+        gateway_v1_backward_compatibility: true
+        ao_msg_size_on_7_bits: true
+        log_level: "INFO"
+
+  - name: console0
+    driver: presentations.console.console:Console
+    
+tracing: 
+    default_level: "warning"
+    default_handlers: 
+      - stderr
+      - file=log_DIA.txt
+          

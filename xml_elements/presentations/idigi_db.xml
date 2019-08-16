@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="iDigi DB">
+  <driver>presentations.idigi_db.idigi_db:iDigi_DB</driver>
+  <is_thread>true</is_thread>
+  <description>NOTE: This presentation is deprecated. Please consider using the EDPUpload device driver instead.
+
+This presentation allows for the DIA to utilize the Device Cloud Storage service to store sample information.
+  
+Whenever the specified interval of time has expired, or the number of new samples exceeds the sample_threshold, this presentation pushes up channel information to Device Cloud.  It retrieves a list of all channels, and pushes up any that have had new samples since the last push to Device Cloud. 
+
+In order to provide the most efficient operation possible for this presentation, we offer a filter on the channels you wish to subscribe to. Omitting the channels setting causes this presentation to listen on all channels, but it is recommended to specify the channels you are interested in if possible.</description>
+  <generic_name>idigi_db</generic_name>
+  <icon>icons/idigi_db.png</icon>
+  <help_url>user/presentations/idigi_db.html</help_url>
+  <settings>
+    <setting label="Interval">
+      <type>integer</type>
+      <required>false</required>
+      <default>60</default>
+      <tooltip>Maximum interval in seconds that this module waits before sending data to the Device Cloud Database.</tooltip>
+      <yml_field>interval</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Sample threshold">
+      <type>integer</type>
+      <required>false</required>
+      <default>10</default>
+      <tooltip>Minimum number of samples required before sending data to the Device Cloud Database.</tooltip>
+      <yml_field>sample_threshold</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Collection">
+      <type>string</type>
+      <required>false</required>
+      <default/>
+      <tooltip>Name of the collection on the database where the data will be stored.</tooltip>
+      <yml_field>collection</yml_field>
+    </setting>
+    <setting label="File count">
+      <type>integer</type>
+      <required>false</required>
+      <default>20</default>
+      <tooltip>Number of unique files that will be kept on Device Cloud.</tooltip>
+      <yml_field>file_count</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="File name">
+      <type>string</type>
+      <required>false</required>
+      <default>sample</default>
+      <tooltip>Name of the XML file that will be pushed to Device Cloud, with a number appended to the end (cycling from 1 to file_count)</tooltip>
+      <yml_field>filename</yml_field>
+    </setting>
+    <setting label="Compact XML">
+      <type>boolean</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>When True it will produce output XML with the information stored as attributes to the sample node instead of separately tagged, resulting in smaller XML output.</tooltip>
+      <yml_field>compact_xml</yml_field>
+    </setting>
+    <setting label="Secure">
+      <type>boolean</type>
+      <required>false</required>
+      <default>true</default>
+      <tooltip>By default, all data is transferred using an encrypted transfer. If an unencrypted transfer is desired, set this option to False.  NOTE: The Digi ConnectPort X3 currently does NOT support this option.</tooltip>
+      <yml_field>secure</yml_field>
+    </setting>
+    <setting label="Channels">
+      <type>list</type>
+      <required>false</required>
+      <tooltip>List of channels the module is subscribed to. If no channels are listed, all channels are subscribed to.</tooltip>
+      <yml_field>channels</yml_field>
+      <content> 
+        <template label="Channel">
+          <type>string</type>
+          <tooltip>Name of the channel the presentation will subscribe.</tooltip>
+        </template>
+      </content>
+    </setting>
+  </settings>
+</presentation>

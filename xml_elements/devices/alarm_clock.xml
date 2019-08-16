@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Alarm clock">
+  <driver>devices.alarm_clock_device:AlarmClockDevice</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>The Alarm Clock device is a low-speed general resource which can help other devices accomplish simple timed actions. It is designed to work with minutes or hours. Users who needed timed behavior faster than once per minute should use their own thread and timer logic.
+
+At present it only offers:
+
+\t1) The ability to trigger a transform (or publish a set) every:
+\t\t'minute'   = once per minute, when seconds = 0
+\t\t'hour'     = once per hour, when minutes &amp; seconds = 0
+\t\t'six_hour' = once per 6 hours, so at 00:05:00, 06:05:00, 12:05:00 and 18:05:00
+\t\t'day'      = once per day, so at 00:00:00 / midnight
+
+  \t2) It can print the line "{name}: time is now 2009-05-31 10:47:00" at any of the above time intervals.</description>
+  <generic_name>alarm_clock</generic_name>
+  <icon>icons/alarm_clock.png</icon>
+  <help_url>user/devices/alarm_clock.html</help_url>
+  <settings>
+    <setting label="Tick rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>60</default>
+      <tooltip>Changing this does NOT affect the minutes etc, as those are based the real time clock; this only affects how often the thread wakes. (s)
+
+\tSetting it to 15 means the thread wakes up 4 times for even 'minute' event.
+\tSetting 300 means 4 of 5 minute events are missed.</tooltip>
+      <yml_field>tick_rate</yml_field>
+      <range>(0,)</range>
+    </setting>
+    <setting label="Trace rate">
+      <type>combo</type>
+      <required>false</required>
+      <items>
+        <item>minute</item>
+        <item>hour</item>
+        <item>six_hour</item>
+        <item>day</item>
+      </items>
+      <default>minute</default>
+      <tooltip>It defines how often the trace 'time is now' line prints, and can be set to one of:
+      
+\t- minute
+\t- hour
+\t- six_hour
+\t- day</tooltip>
+      <yml_field>printf</yml_field>
+    </setting>
+  </settings>  
+</device>

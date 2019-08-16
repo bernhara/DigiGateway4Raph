@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Info Device">
+  <driver>devices.info_device:InfoDevice</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>The Info Device manages a collection of data channels describing the 
+installation, such a user assigned application name and version. 
+Since these channels can be uploaded to Device Cloud, large users can 
+use the data for understanding application versions at various sites, and so on.
+
+These data channels are included ONLY if the coorespodning YML setting is not empty:
+\t'name'        = a user assigned string, such as "Digi garden management"
+\t'version'     = a user assigned string, such as "2.1.A2"
+\t'sitename'    = a user assigned string, such as "Golden Valley #2"
+\t'comment'     = a user assigned string, such as "Second site to go live"
+\t'tags'        = a list as a string, such as "['fff', 'ggg', 23, ]"
+
+These data channels are automatic, so always exist:
+\t'build_date'  = a string with date/time created by make.py as dia.zip was built, such "2013-02-06T20:58:45Z"
+\t'dia_version' = a string from the core Dia installed, such "2.2.0.1"
+</description>
+
+  <generic_name>info_device</generic_name>
+  <icon>icons/infodevice.png</icon>
+  <help_url>user/devices/info_device.html</help_url>
+  <settings>
+  
+    <setting label="Application Name">
+      <type>string</type>
+      <required>false</required>
+      <default>""</default>
+      <tooltip>User defined NAME for the Dia application running, such as 'Garden Control'.</tooltip>
+      <yml_field>name</yml_field>
+    </setting>
+    
+    <setting label="Application Version">
+      <type>string</type>
+      <required>false</required>
+      <default>""</default>
+      <tooltip>User defined VERSION for the Dia application running, such as '1.2a Beta'.</tooltip>
+      <yml_field>version</yml_field>
+    </setting>
+    
+    <setting label="Site Name">
+      <type>string</type>
+      <required>false</required>
+      <default>""</default>
+      <tooltip>User defined NAME for the site this Dia application is running at, such as 'Golden Valley #4'.</tooltip>
+      <yml_field>sitename</yml_field>
+    </setting>
+    
+    <setting label="Other Comment">
+      <type>string</type>
+      <required>false</required>
+      <default>""</default>
+      <tooltip>User defined COMMENT, such as 'Johnny Q is in charge of this one!'.</tooltip>
+      <yml_field>comment</yml_field>
+    </setting>
+
+    <setting label="Other Tags">
+      <type>list</type>
+      <required>false</required>
+      <default>""</default>
+      <tooltip>User defined Python list, as a string, such as ['active', 6573, 'Tom Jones'].</tooltip>
+      <yml_field>tags</yml_field>
+    </setting>
+
+    <setting label="Refresh Rate">
+      <type>string</type>
+      <required>false</required>
+      <default>""</default>
+      <tooltip>Refresh data channels periodically with new timestamps, for example once a day. Default is to refresh only upon gateway reboot, never again. The rate is a simple 2-part string of the form "nn tag", where "nn' is an integer and "tag" is a string in ['ms','sec','min','hr','day'], so for example "1 hr" means every 3600 seconds, and so on.</tooltip>
+      <yml_field>refresh</yml_field>
+    </setting>
+
+  </settings>  
+</device>

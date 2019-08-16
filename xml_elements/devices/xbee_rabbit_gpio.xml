@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Rabbit GPIO">
+  <driver>devices.rabbit.xbee_gpio_client:XBeeGPIOClient</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>XBee Rabbit GPIO Client creates channels based upon the results of a GPIO discovery query to the BL4S100.</description>
+  <generic_name>rabbit_gpio</generic_name>
+  <icon>icons/xbee_rabbit_gpio.png</icon>
+  <help_url>user/devices/rabbit/gpio.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Poll rate">
+      <type>float</type>
+      <required>false</required>
+      <default/>
+      <tooltip>The number of seconds between each GPIO polling. Do not set (or set to 0) if the GPIO server is pushing data.</tooltip>
+      <yml_field>poll_rate</yml_field>
+      <range>[0,)</range>
+    </setting>
+  </settings>  
+</device>

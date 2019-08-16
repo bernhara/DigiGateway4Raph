@@ -1,0 +1,89 @@
+#####################################################################
+# Automatically generated file
+# Created on: 25 November 2014
+# Author: orba6563
+# Description:
+#####################################################################
+
+##
+## The devices section specifies settings for devices.
+## It contains a list of device instances.
+##
+## Instances follow the following format:
+##
+##   - name: "device_instance_name"
+##     driver: dot.separated.path.to.driver:DriverClassName
+##     settings:
+##         setting_name0: setting_value0
+##         setting_name1: setting_value1
+##         # ..
+##         setting_namen: setting_valuen
+##
+devices:
+  # Manage requests from devices relating to the XBee.
+  # A single instance of the XBee Device Manager is required when using one
+  # or more XBee device drivers on the DIA.
+  - name: xbee_device_manager
+    driver: devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager
+
+  # The EDP Upload driver sends samples from channels to Device Cloud.
+  #
+  # It can upload a snapshot of channel values at a periodic interval, or 
+  # it can periodically upload all channel values changes once it collects 
+  # a specific number.
+  - name: edp_upload0
+    driver: devices.edp_upload:EDPUpload
+    settings:
+        interval: 5
+        sample_threshold: 20
+        collection: "collection_name"
+        filename: "file_name"
+
+##
+## The presentation section specify the ways in which information
+## in the system is available.
+## It contains a list of presentation instances.
+##
+## Presentation instances, similar to driver instances, follow the
+## following format:
+##
+##   - name: "presentation_instance_name"
+##     driver: dot.separated.path.to.presentation:PresentationClassName
+##     settings:
+##         setting_name0: setting_value0
+##         setting_name1: setting_value1
+##         # ..
+##         setting_namen: setting_valuen
+##
+presentations:
+  # Enable the DIA framework to answer web-service requests from ConnectWare:
+  - name: rci
+    driver: presentations.rci.rci_handler:RCIHandler
+    settings:
+        target_name: idigi_dia
+
+  # Create a new console instance on TCP port 4146. It can be connected 
+  # two by using any telnet client. It is useful to get a quick and simple 
+  # look at the current state of the system. It shows the status of all 
+  # channels, and allows users to set any channels that support being configured.
+  - name: console0
+    driver: presentations.console.console:Console
+    settings: 
+        type: tcp
+        port: 4146
+
+  # Create a web presentation instance. It shows list of available channels
+  # and get their values.
+  # When running on a PC this will start a new web-server on a default port
+  # When running on an Device Cloud Device this presentation will "extend" the
+  # web-server built in to the Device Cloud Device with a new page named
+  # "dia.html". See the file src/presentations/web/web.py form more
+  # information.
+  - name: web0
+    driver: presentations.web.web:Web
+    settings: 
+        page: dia.html
+
+tracing:
+    default_handlers:
+      - stderr

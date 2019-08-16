@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Telemetry One Driver">
+	<driver>devices.telemetry1:TelemetryOneDriver</driver>
+	<is_virtual>true</is_virtual>
+	<is_xbee>false</is_xbee>
+	<is_thread>false</is_thread>
+	<is_sleep>false</is_sleep>
+	<is_sample_rate>true</is_sample_rate>
+	<description>The Telemetry one driver provides a digital I/O interface. In addition it has a relay port which serves as a means to make or break a circuit depending on the state of digital in port. The device contains a temperature sensor and a voltage monitor that report their values based on the current situation and users can update their value anytime. This driver is comprised of the following features:
+
+	\t -One gettable input channel and four settable output channels
+	\t -One settable relay port 
+	\t -Two gettable channels for reporting sensed temperature and voltage
+	</description>
+	<generic_name>telemetry_one</generic_name>
+	<icon>icons/telemetry_one.png</icon>
+	<settings>
+		<setting label="channel1_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 1 provided by other Dia channels in the system</tooltip>
+			<yml_field>channel1_source</yml_field>
+		</setting>
+		<setting label="channel2_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 2 provided by other Dia channels in the system</tooltip>
+			<yml_field>channel2_source</yml_field>
+		</setting>		
+		<setting label="channel3_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 3 provided by other Dia channels in the system</tooltip>
+			<yml_field>channel3_source</yml_field>
+		</setting>
+		<setting label="channel4_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 4 provided by other Dia channels in the system</tooltip>
+			<yml_field>channel4_source</yml_field>
+		</setting>		
+		<setting label="sample_rate_ms">
+			<type>float</type>
+			<required>false</required>
+			<default>10000.0</default>
+			<tooltip>Specify the input polling rate</tooltip>
+			<yml_field>sample_rate_ms</yml_field>
+		</setting>
+	</settings>
+</device>

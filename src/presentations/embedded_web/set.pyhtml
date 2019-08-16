@@ -1,0 +1,32 @@
+<script>
+
+<% import time %>
+<% from samples.sample import Sample %>
+<% from common.types.boolean import Boolean %>
+<% import channels.channel_source_device_property as dev_props %>
+<% try: %>
+	<% e = request["args"]['own'] %>
+	<% chan = request["cm"].channel_get(e[3:]) %>
+	<% val_type = chan.type() %>
+	<% value = request["args"]["val"] %>
+	   <% if isinstance(value,Boolean) and not value: %>
+	    <% value = "" %>
+	   <% end %>
+	<% chan.consumer_set(Sample(time.time(), val_type(value) )) %>
+
+	<% if chan.perm_mask() & dev_props.DPROP_PERM_GET and not (chan.options_mask() & dev_props.DPROP_OPT_DONOTDUMPDATA): %>
+		$("<%=e%>").value = "<%= chan.get().value %>";
+		$("<%=e%>.debug").innerHTML = "";
+	<% end %>
+	<%else:%>
+		$("<%=e%>").value = "";
+	<% end %>
+	<% end %>
+<% except Exception, detail: %>
+	$("<%=e%>").value = "";
+	<% if request["args"].has_key("val") and not request["args"]["val"].split()=="": %>
+	   $("<%=e%>.debug").innerHTML = "<%= detail %>";
+	<% end %>
+<% end %>
+
+</script>

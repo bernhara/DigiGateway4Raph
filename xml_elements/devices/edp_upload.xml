@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="EDP Upload">
+  <driver>devices.edp_upload:EDPUpload</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>The EDP Upload driver sends sample data for Digi devices to the Device Cloud.</description>
+  <generic_name>edp_upload</generic_name>
+  <icon>icons/idigi_db.png</icon>
+  <help_url>user/devices/edp_upload.html</help_url>
+
+  <settings>
+    <setting label="Initial upload">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <range>[0,)</range>
+      <tooltip>The number of seconds to delay after startup before
+      sending an intial snapshot. If it is not specified, initial upload is
+      disabled.</tooltip>
+      <yml_field>initial_upload</yml_field>
+    </setting>
+    <setting label="Upload interval">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <range>[0,)</range>
+      <tooltip>The maximum interval in seconds that the driver waits after an upload before uploading all collected samples.</tooltip>
+      <yml_field>interval</yml_field>
+    </setting>
+
+    <setting label="Sample set size">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <tooltip>The number of channel updates to collect before sending
+to Device Cloud. If 0, this feature is disabled.</tooltip>
+      <yml_field>sample_threshold</yml_field>
+    </setting>
+
+    <setting label="Device Cloud Collection">
+      <type>string</type>
+      <required>false</required>
+      <default/>
+      <tooltip>The target collection in Device Cloud for data uploads. If not set,
+      defaults to the device's directory (which is its Device ID).</tooltip>
+      <yml_field>collection</yml_field>
+    </setting>
+
+    <setting label="Channels">
+      <type>list</type>
+      <required>false</required>
+      <default/>
+      <tooltip>List of channels the to which the driver is subscribed. The default is all channels. Wildcards "*" and "?" are supported.</tooltip>
+      <yml_field>channels</yml_field>
+      <content> 
+        <template label="Channel">
+          <type>string</type>
+          <tooltip>Name of the channel to which this driver will subscribe. (Wildcards are allowed.)</tooltip>
+        </template>
+      </content>
+    </setting>
+
+    <setting label="Upload file name">
+      <type>string</type>
+      <required>false</required>
+      <default>upload</default>
+      <tooltip>The base name of the uploaded data file.</tooltip>
+      <yml_field>filename</yml_field>
+    </setting>
+
+    <setting label="Unique file count">
+      <type>integer</type>
+      <required>false</required>
+      <default>20</default>
+      <range>[1,)</range>
+      <tooltip>The number of unique files to upload before overwriting in a round-robin fashion.</tooltip>
+      <yml_field>file_count</yml_field>
+    </setting>
+
+    <setting label="Enable legacy time format">
+      <type>boolean</type>
+      <required>false</required>
+      <default>false</default>
+      <tooltip>Use the time format used by the iDigi_DB presentation. If false, the driver uses a combined iso8601 UTC date and time.</tooltip>
+      <yml_field>legacy_time_format</yml_field>
+    </setting>
+
+    <setting label="Upload control">
+      <type>string</type>
+      <required>false</required>
+      <default>magic_on_string</default>
+      <tooltip>If set, this must be a boolean channel name. This
+      driver is then only enabled when that channel is true.</tooltip>
+      <yml_field>upload_control</yml_field>
+    </setting>
+
+    <setting label="Upload format">
+      <type>combo</type>
+      <required>false</required>
+      <default>1.1</default>
+      <items>
+        <item>1.1</item>
+        <item>idigi_db_full</item>
+        <item>idigi_db_compact</item>
+      </items>
+      <tooltip>'idigi_db_full' and 'idigi_db_compact' are legacy options. Use 
+'1.1' unless you know you need something else.</tooltip>
+      <yml_field>compatibility</yml_field>
+    </setting>
+  </settings>  
+</device>

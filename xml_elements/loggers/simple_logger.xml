@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<logger label="Simple Logger">
+  <driver>channels.logging.simple_logger.simple_logger:SimpleLogger</driver>
+  <description>Simple Logger prints a message when new events are received. Possible logging events are:
+
+\t* New channel A Dia channel has been created.
+\t* New Sample A channel has been updated with a new Sample.
+\t* Remove channel A channel has been removed from the channel database.</description>
+  <generic_name>simple_logger</generic_name>
+  <icon>icons/simple_logger.png</icon>
+  <help_url>user/loggers/simple_logger.html</help_url>
+  <settings/>
+</logger>

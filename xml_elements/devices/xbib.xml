@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Interface Board">
+  <driver>devices.xbee.xbee_devices.xbee_xbib:XBeeXBIB</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>true</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>XBee Interface Board (XBIB) device.
+
+There are 2 different versions of the XBIB device, the serial (RS 232) and the USB one, but both of them use the same Dia device driver to configure and manage their settings.</description>
+  <generic_name>xbib</generic_name>
+  <icon>icons/xbib.png</icon>
+  <help_url>user/devices/xbee/xbee_devices/xbib.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee Sensor device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Sleep ms">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <tooltip>Number of milliseconds the XBee Board will be sleeping in each sleep period. Minimum value for this setting is 320 ms, 0 means no sleep.</tooltip>
+      <yml_field>sleep_ms</yml_field>
+      <range>[0,1834980000]</range>
+    </setting>
+    <setting label="Led 1 source">
+      <type>string</type>
+      <required>false</required>
+      <default></default>
+      <tooltip>Name of the boolean Dia channel that will represent this XBIB channel (led1). Each time the channel changes its value, the led1 channel will adopt its value turning on or off the physical led.</tooltip>
+      <yml_field>led1_source</yml_field>
+    </setting>
+    <setting label="Led 2 source">
+      <type>string</type>
+      <required>false</required>
+      <default></default>
+      <tooltip>Name of the boolean Dia channel that will represent this XBIB channel (led2). Each time the channel changes its value, the led2 channel will adopt its value turning on or off the physical led.</tooltip>
+      <yml_field>led2_source</yml_field>
+    </setting>
+    <setting label="Led 3 source">
+      <type>string</type>
+      <required>false</required>
+      <default></default>
+      <tooltip>Name of the boolean Dia channel that will represent this XBIB channel (led3). Each time the channel changes its value, the led3 channel will adopt its value turning on or off the physical led.</tooltip>
+      <yml_field>led3_source</yml_field>
+    </setting>
+    <setting label="Awake time">
+      <type>integer</type>
+      <required>false</required>
+      <default>1500</default>
+      <tooltip>How long, in milliseconds, should the board stay awake between each sleep period.</tooltip>
+      <yml_field>awake_time_ms</yml_field>
+      <range>[0,65535]</range>
+    </setting>
+  </settings>
+</device>

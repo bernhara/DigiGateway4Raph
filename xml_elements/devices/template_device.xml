@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Template device">
+  <driver>devices.template_device:TemplateDevice</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>This device driver serves as a starting point to learn about the structure of device drivers in the Dia as well as to be used as a template in order to create new drivers. The template device is a virtual device driver. It connects to no hardware peripheral. The driver is comprised of the following two features:
+
+\t- A counter which updates at a configurable rate.
+\t- A pair of two settable channel properties which when set are added together and output to a third, gettable channel property.</description>
+  <generic_name>template_device</generic_name>
+  <icon>icons/template_device.png</icon>
+  <help_url>user/devices/template_device.html</help_url>
+  <settings>
+    <setting label="Count init">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <range>[0,)</range>
+      <tooltip>Defines what the initial value of the counter should be after the driver starts or after a reset.</tooltip>
+      <yml_field>count_init</yml_field>
+    </setting>
+    <setting label="Update rate">
+      <type>float</type>
+      <required>false</required>
+      <default>1</default>
+      <range>(0,)</range>
+      <tooltip>Defines how fast the counter should update, in seconds.</tooltip>
+      <yml_field>update_rate</yml_field>
+    </setting>
+  </settings>  
+</device>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Autoenumeration">
+  <driver>devices.xbee.xbee_devices.xbee_autoenum:XBeeAutoEnum</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>This device allows the creation of systems where the specific pre-configured MAC address of XBee nodes that will be populated for a solution is not known at the time of configuration, but the profile of device types or names that should be found can be known.
+
+Devices found will have instances created in the channel database according to the following naming scheme:
+
+\tIf the "NI" value is set on the device, that will be the instance name
+\tOtherwise, the instance name will be "name + _ + extended_address".
+
+For example, the following configuration block may result in an instance name like "auto_aio_00:13:a2:00:40:32:15:87!".
+  </description>
+  <generic_name>autoenum</generic_name>
+  <icon>icons/xbee_autoenum.png</icon>
+  <help_url>user/devices/xbee/xbee_devices/autoenum.html</help_url>
+  <settings>
+    <setting label="Discover rate">
+      <type>integer</type>
+      <required>true</required>
+      <default>60</default>
+      <tooltip>How often the auto-enumeration driver will check for new devices having associated to the PAN.</tooltip>
+      <yml_field>discover_rate</yml_field>
+      <range>[60,86400]</range>
+    </setting>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>The XBee Device Manager instance that will be used to manage devices that do not specify one of their own in their devices entry below.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="Short names">
+      <type>boolean</type>
+      <required>false</required>
+      <tooltip>Shortens the discovered device names, when NI is not used, to only include the last two octets of the XBee MAC Address.</tooltip>
+      <yml_field>short_names</yml_field>
+      <default>false</default>
+    </setting>
+    <setting label="Devices">
+      <type>code</type>
+      <required>true</required>
+      <default>#          - name: auto_name
+#            driver: device_driver_pah:Class
+#            settings:
+#                setting1: value1
+#                setting2: value2</default>
+      <tooltip>A list of device setting blocks similar to those that would be configured for a device at the top level devices section of the configuration file.</tooltip>
+      <yml_field>devices</yml_field>
+    </setting>
+  </settings>
+</device>

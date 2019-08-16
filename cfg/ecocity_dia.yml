@@ -1,0 +1,66 @@
+# $Id: ecocity_dia.yml 1477 2015-12-29 08:51:29Z orba6563 $
+
+devices: 
+
+  - name: alarm_clock0
+    driver: devices.alarm_clock_device:AlarmClockDevice
+
+  - name: transform0
+    driver: devices.transforms_device:TransformsDevice
+    
+  - name: xbee_device_manager0
+    driver: devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager
+
+  - name: xbeesensor0
+    driver: devices.xbee.xbee_devices.xbee_sensor:XBeeSensor
+
+  - name: waspmote0
+    driver: custom_devices.libelium.waspmote_device:Waspmote
+    
+  - name: libelium_lora_device_manager0
+    driver: custom_devices.libelium.lora_device_manager:LoraDeviceManager
+        
+  - name: waspmote1
+    driver: custom_devices.libelium.lora_waspmote_device:LoraWaspmote
+    
+  - name: ecjsonformater0
+    driver: custom_devices.ecocity.ecocity_json_formater:EcocityJsonFormater
+
+  - name: websocketupload0
+    driver: custom_devices.orange.websocketupload:websocketupload    
+
+  - name: injector0
+    driver: custom_devices.orange.diasampleinjector:DIASampleInjector
+    
+  - name: DigiLTH0
+    driver: devices.xbee.xbee_devices.xbee_sensor:XBeeSensor
+
+  - name: edp_upload0
+    driver: devices.edp_upload:EDPUpload    
+
+presentations:
+
+  - name: dtdns0
+    driver: custom_presentations.orange.dtdns:DTDNSPresentation
+    
+  - name: console0
+    driver: presentations.console.console:Console
+
+  - name: web0
+    driver: presentations.web.web:Web
+
+  - name: rci0
+    driver: presentations.rci.rci_handler:RCIHandler
+
+tracing:
+  filters:
+      - name: "*"
+        level: =critical
+        handlers:
+          - file=log_dia.txt
+        stop: False
+      - name: "*"
+        level: info
+        handlers:
+          - stderr
+        stop: False        

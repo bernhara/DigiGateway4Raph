@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Telemetry Two Driver">
+	<driver>devices.telemetry2:TelemetryTwoDriver</driver>
+	<is_virtual>true</is_virtual>
+	<is_xbee>false</is_xbee>
+	<is_thread>false</is_thread>
+	<is_sleep>false</is_sleep>
+	<is_sample_rate>true</is_sample_rate>
+	<description>This Telemetry Two driver is a general purpose digital I/O interface as well as analog I/O The driver is comprised of the following features:
+
+	\t -Four settable or gettable input and output channels
+	\t -Four settable or gettable analog I/O channels 
+	</description>
+	<generic_name>telemetry_two</generic_name>
+	<icon>icons/telemetry_two.png</icon>
+	<settings>
+		<setting label="analog1_mode">
+			<type>combo</type>
+			<required>False</required>
+			<items>
+				<item>Transmitter</item>
+				<item>Receiver</item>
+			</items>
+			<tooltip>Configure analog1_channel. Should be either a transmitter or a receiver</tooltip>
+			<yml_field>analog1_mode</yml_field>
+		</setting>
+		<setting label="analog2_mode">
+			<type>combo</type>
+			<required>False</required>
+			<items>
+				<item>Transmitter</item>
+				<item>Receiver</item>
+			</items>
+			<tooltip>Configure analog2_channel. Should be either a transmitter or a receiver</tooltip>
+			<yml_field>analog2_mode</yml_field>
+		</setting>
+		<setting label="analog3_mode">
+			<type>combo</type>
+			<required>False</required>
+			<items>
+				<item>Transmitter</item>
+				<item>Receiver</item>
+			</items>
+			<tooltip>Configure analog3_channel. Should be either a transmitter or a receiver</tooltip>
+			<yml_field>analog3_mode</yml_field>
+		</setting>
+		<setting label="analog4_mode">
+			<type>combo</type>
+			<required>False</required>
+			<items>
+				<item>Transmitter</item>
+				<item>Receiver</item>
+			</items>
+			<tooltip>Configure analog4_channel. Should be either a transmitter or a receiver</tooltip>
+			<yml_field>analog4_mode</yml_field>
+		</setting>									
+		<setting label="channel1_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel1_dir</yml_field>
+		</setting>
+		<setting label="channel2_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>			
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel2_dir</yml_field>
+		</setting>		
+		<setting label="channel3_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel3_dir</yml_field>
+		</setting>
+		<setting label="channel4_dir">
+			<type>combo</type>
+			<required>True</required>
+			<items>
+				<item>in</item>
+				<item>out</item>
+			</items>
+			<tooltip>Configure the direction of the corresponding Digital I/O port</tooltip>
+			<yml_field>channel4_dir</yml_field>
+		</setting>
+		<setting label="channel1_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 1 provided by other Dia channels in the system. It is applicable only if configured as an output.</tooltip>
+			<yml_field>channel1_source</yml_field>
+		</setting>
+		<setting label="channel2_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 2 provided by other Dia channels in the system. It is applicable only if configured as an output.</tooltip>
+			<yml_field>channel2_source</yml_field>
+		</setting>		
+		<setting label="channel3_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 3 provided by other Dia channels in the system. It is applicable only if configured as an output.</tooltip>
+			<yml_field>channel3_source</yml_field>
+		</setting>
+		<setting label="channel4_source">
+			<type>string</type>
+			<required>false</required>
+			<tooltip>Allow the output to be configured to track changes in channel 4 provided by other Dia channels in the system. It is applicable only if configured as an output.</tooltip>
+			<yml_field>channel4_source</yml_field>
+		</setting>			
+		<setting label="sample_rate_ms">
+			<type>float</type>
+			<required>false</required>
+			<default>10000.0</default>
+			<tooltip>Specify the input polling rate</tooltip>
+			<yml_field>sample_rate_ms</yml_field>
+		</setting>
+	</settings>
+</device>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="XBee Smart Plug">
+  <driver>devices.xbee.xbee_devices.xbee_rpm:XBeeRPM</driver>
+  <is_virtual>false</is_virtual>
+  <is_xbee>true</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>true</is_sample_rate>
+  <description>XBee SmartPlug with Power Management device.</description>
+  <generic_name>rpm</generic_name>
+  <icon>icons/xbee_rpm.png</icon>
+  <help_url>user/devices/xbee/xbee_devices/rpm.html</help_url>
+  <settings>
+    <setting label="XBee Device Manager">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of an XBeeDeviceManager instance.</tooltip>
+      <yml_field>xbee_device_manager</yml_field>
+      <dependence type="value">
+        <depend_element>devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager</depend_element>
+        <depends_on>value</depends_on>
+        <new_value>elementName</new_value>
+      </dependence>
+    </setting>
+    <setting label="MAC Address">
+      <type>mac</type>
+      <required>true</required>
+      <tooltip>The extended address of the XBee device you would like to monitor.</tooltip>
+      <yml_field>extended_address</yml_field>
+      <pattern>([\da-fA-F]{2}:){7}[\da-fA-F]{2}!</pattern>
+      <pattern_example>01:23:45:67:89:ab:cd:ef!</pattern_example>
+    </setting>
+    <setting label="Sample rate">
+      <type>integer</type>
+      <required>false</required>
+      <default>1000</default>
+      <tooltip>The sample rate of the XBee SmartPlug in milliseconds.</tooltip>
+      <yml_field>sample_rate_ms</yml_field>
+      <range>(0,65535)</range>
+    </setting>
+    <setting label="Default state">
+      <type>combo</type>
+      <required>false</required>
+      <default>Same</default>
+      <items>
+        <item>On</item>
+        <item>Off</item>
+        <item>Same</item>
+      </items>
+      <tooltip>"On"/"Off"/"Same", if "On" the plug will default to being switched on.</tooltip>
+      <yml_field>default_state</yml_field>
+    </setting>
+    <setting label="IDLE Off seconds">
+      <type>integer</type>
+      <required>false</required>
+      <default>0</default>
+      <tooltip>Number of seconds to go by before forcing power off. If not set the value defaults to 0, which means the device never idles out.</tooltip>
+      <yml_field>idle_off_seconds</yml_field>
+      <range>[0,)</range>
+    </setting>
+    <setting label="Power On source">
+      <type>string</type>
+      <required>false</required>
+      <default/>
+      <tooltip>String name of a Boolean "device.channel" to be used as the state. For example, if set to the name of a channel which changes value from False to True, the SmartPlug would change from being off to on.</tooltip>
+      <yml_field>power_on_source</yml_field>
+    </setting>
+    <setting label="Power Factor adjustment">
+      <type>float</type>
+      <required>false</required>
+      <default>1</default>
+      <tooltip>Floating point value between 0 and 1, that is used to adjust the current output given a known power factor. Defaults to 1 (i.e no adjustment)\r\nNote: The unit cannot determine the pf, it is strictly a user supplied value.</tooltip>
+      <yml_field>pf_adjustment</yml_field>
+      <range>(0,1]</range>
+    </setting>
+    <setting label="Device profile">
+      <type>combo</type>
+      <required>false</required>
+      <default/>
+      <items>
+        <item>fluor-mag</item>
+        <item>fluor-electronic</item>
+        <item>1/3hp-dc-motor</item>
+        <item>laptop</item>
+        <item>lcd_monitor</item>
+        <item>workstation</item>
+      </items>
+      <tooltip>String value corresponding to a preset pf_adjustment value. These values are by no means meant to be precise, and are at best ballpark estimates. For a list of the available devices, see the check_profiles function below. For more accuracy, use the pf_adjustment setting above. If both pf_adjustment and device_profile are set, only pf_adjustment is used.</tooltip>
+      <yml_field>device_profile</yml_field>
+    </setting>
+  </settings>  
+</device>

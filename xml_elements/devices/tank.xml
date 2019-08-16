@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Tank">
+  <driver>devices.tanks.tank:Tank</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>Fluid Dia tank element which represents a physical one. Needs a tank sensor as part of the element and 2 Dia channels to control the input and output valves. The tank sensor device MUST generate the following 2 Dia channels:
+
+\t- temperature: Displays the temperature of the tank (C).
+\t- distance: Displays the distance in inches from the top of the tank to the liquid.</description>
+  <generic_name>tank</generic_name>
+  <icon>icons/tank.png</icon>
+  <settings>
+    <setting label="Tank Sensor device">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Must be set to the name of a tank sensor instance.</tooltip>
+      <yml_field>tank_sensor_device</yml_field>
+    </setting>
+    <setting label="Input Valve channel">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Name of the Dia channel to be interpreted as Input Valve status.</tooltip>
+      <yml_field>input_valve_channel</yml_field>
+    </setting>
+    <setting label="Output Valve channel">
+      <type>string</type>
+      <required>true</required>
+      <tooltip>Name of the Dia channel to be interpreted as Output Valve status.</tooltip>
+      <yml_field>output_valve_channel</yml_field>
+    </setting>
+    <setting label="Tank Height">
+      <type>float</type>
+      <required>true</required>
+      <default>2.0</default>
+      <tooltip>Tank height (in meters).</tooltip>
+      <yml_field>tank_height</yml_field>
+      <range>(0,)</range>
+    </setting>
+    <setting label="High Level Alarm">
+      <type>integer</type>
+      <required>false</required>
+      <tooltip>Insert the minimum value of the tank level (%) to trigger a high level alarm. Leave it in blank to disable the high level alarm.</tooltip>
+      <yml_field>max_level_alarm</yml_field>
+    </setting>
+    <setting label="Low Level Alarm">
+      <type>integer</type>
+      <required>false</required>
+      <tooltip>Insert the maximum value of the tank level (%) to trigger a low level alarm. Leave it in blank to disable the low level alarm.</tooltip>
+      <yml_field>min_level_alarm</yml_field>
+    </setting>
+    <setting label="High Temperature Alarm">
+      <type>float</type>
+      <required>false</required>
+      <tooltip>Insert the minimum value of the temperature (C) to trigger a high temperature alarm. Leave it in blank to disable the high temperature alarm.</tooltip>
+      <yml_field>max_temperature_alarm</yml_field>
+    </setting>
+    <setting label="Low Temperature Alarm">
+      <type>float</type>
+      <required>false</required>
+      <tooltip>Insert the maximum value of the temperature (C) to trigger a low temperature alarm. Leave it in blank to disable the low temperature alarm.</tooltip>
+      <yml_field>min_temperature_alarm</yml_field>
+    </setting>
+  </settings>
+</device>

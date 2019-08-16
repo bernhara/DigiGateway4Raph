@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Transform device">
+  <driver>devices.transforms_device:TransformsDevice</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>false</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>Provides a means to transform the content of channels. Given a list of channels, a new channel is created that is the result of a simple expression on the input channels.
+
+There are many possible uses for this type of functionality unit conversion, input validation, creating terms that drive further logic, filtering and more.</description>
+  <generic_name>transform</generic_name>
+  <icon>icons/transform.png</icon>
+  <help_url>user/devices/transforms.html</help_url>
+  <settings>
+    <setting label="Transform Channels">
+      <type>list</type>
+      <required>true</required>
+      <tooltip>Specify the new transform channels to be generated.</tooltip>
+      <yml_field>instance_list</yml_field>
+      <content>
+        <template label="Channel">
+          <type>object</type>
+          <tooltip></tooltip>
+          <settings>
+            <setting label="Name">
+              <type>string</type>
+              <required>true</required>
+              <tooltip>Specify the name of the channel that will be generated.</tooltip>
+              <yml_field>name</yml_field>
+            </setting>
+            <setting label="Unit">
+              <type>string</type>
+              <required>false</required>
+              <tooltip>Specify the unit for the new channel.</tooltip>
+              <yml_field>unit</yml_field>
+            </setting>
+            <setting label="Channels">
+              <type>list</type>
+              <required>true</required>
+              <tooltip>List of channels involved in the value expression of the new channel.</tooltip>
+              <yml_field>channels</yml_field>
+              <content>
+                <template label="Channel">
+                  <type>string</type>
+                  <tooltip>Channel involved in the mathematical expression for the new channel.</tooltip>
+                </template>
+              </content>
+            </setting>
+            <setting label="Expression">
+              <type>string</type>
+              <required>true</required>
+              <tooltip>Mathematical expression for the channel. i.e. 2*c[0]</tooltip>
+              <yml_field>expr</yml_field>
+            </setting>
+          </settings>
+        </template>
+      </content>
+    </setting>
+  </settings>
+</device>

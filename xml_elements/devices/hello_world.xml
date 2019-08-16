@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device label="Hello World!">
+  <driver>devices.hello_world_device:HelloWorldDevice</driver>
+  <is_virtual>true</is_virtual>
+  <is_xbee>false</is_xbee>
+  <is_thread>true</is_thread>
+  <is_sleep>false</is_sleep>
+  <is_sample_rate>false</is_sample_rate>
+  <description>This device driver serves as a starting point to learn about the structure of device drivers in the Dia as well as to be used as a template in order to create new drivers.
+  
+The hello_world device is a virtual device driver. It connects to no hardware peripheral. The driver is comprised of the following two features:
+
+\t- A greeting string ("Hello ") which can never be changed, only sampled.
+\t- A suffix string ("World!") which can be changed by the user to illustrated the concept of setting a driver component.</description>
+  <generic_name>hello_world</generic_name>
+  <icon>icons/hello_world.png</icon>
+  <settings>
+    <setting label="Prefix init">
+      <type>string</type>
+      <required>false</required>
+      <default>Hello </default>
+      <tooltip>Greeting string which can never be changed when Dia is running, only sampled.</tooltip>
+      <yml_field>prefix_init</yml_field>
+      <pattern>.+</pattern>
+      <pattern_example>Hello</pattern_example>
+    </setting>
+    <setting label="Suffix init">
+      <type>string</type>
+      <required>false</required>
+      <default>World!</default>
+      <tooltip>Suffix string that will be stored in 'suffix_string' channel. This value can be changed by the user when Dia is running.</tooltip>
+      <yml_field>suffix_init</yml_field>
+      <pattern>.+</pattern>
+      <pattern_example>World!</pattern_example>
+    </setting>
+    <setting label="Update rate">
+      <type>float</type>
+      <required>false</required>
+      <default>1.0</default>
+      <tooltip>Defines how fast the final string will be composed (by the prefix and suffix) inside the 'xtended_string' channel, in seconds.</tooltip>
+      <yml_field>update_rate</yml_field>
+      <range>(0,)</range>
+    </setting>
+  </settings>  
+</device>

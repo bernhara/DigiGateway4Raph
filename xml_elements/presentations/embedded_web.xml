@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<presentation label="Embedded Web">
+  <driver>presentations.embedded_web.web:Web</driver>
+  <is_thread>false</is_thread>
+  <description>This presentation embeds a ui for interacting with the channels within the devices existing web interface. This module will not function except on Digi devices.</description>
+  <generic_name>embedded_web</generic_name>
+  <icon>icons/embedded_web2.png</icon>
+  <help_url>user/presentations/embedded_web.html</help_url>
+  <settings>
+    <setting label="Page">
+      <type>string</type>
+      <required>false</required>
+      <default>idigi_dia</default>
+      <tooltip>The path in URL to access this device. i.e. "http://deviceIp/idigi_dia".</tooltip>
+      <yml_field>page</yml_field>
+    </setting>
+    <setting label="Channels to exclude">
+      <type>list</type>
+      <required>false</required>
+      <tooltip>Channels whose name matches one in this list will not be processed as part of the channel list provided to the HTML template processing.</tooltip>
+      <yml_field>exclude</yml_field>
+      <content> 
+        <template label="Channel">
+          <type>string</type>
+          <tooltip>Name of the channel to be excluded.</tooltip>
+        </template>
+      </content>
+    </setting>
+  </settings>
+</presentation>
