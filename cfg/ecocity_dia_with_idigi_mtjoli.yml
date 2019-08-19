@@ -1,0 +1,137 @@
+devices:
+
+  - name: xbee_device_manager0
+    driver: devices.xbee.xbee_device_manager.xbee_device_manager:XBeeDeviceManager
+
+  - name: DigiLTH_ECN_ED0E
+    driver: devices.xbee.xbee_devices.xbee_sensor:XBeeSensor
+    settings: 
+        xbee_device_manager: "xbee_device_manager0"
+        extended_address: "00:13:a2:00:40:78:ed:0e!"
+        sleep: True
+	# sample_rate_ms: 600000
+        sample_rate_ms: 120000
+	awake_time_ms: 1000
+        sample_predelay: 125
+        humidity_present: true
+
+  - name: DigiLTH_ECN_ED0E_Adjusted
+    driver: devices.transforms_device:TransformsDevice
+    settings:
+    - name: temperature
+      channels:
+        - DigiLTH_ECN_ED0E.temperature
+      expr: c[0] + 16.5
+
+  - name: DigiLTH_ECN_CE19
+    driver: devices.xbee.xbee_devices.xbee_sensor:XBeeSensor
+    settings: 
+	xbee_device_manager: "xbee_device_manager0"
+        extended_address: "00:13:a2:00:40:8a:ce:19!"
+        sleep: True
+	sample_rate_ms: 180000
+	awake_time_ms: 1000
+        sample_predelay: 125
+        humidity_present: true
+
+#  - name: StationSmartCities754F
+#    driver: custom_devices.libelium.waspmote_device:Waspmote
+#    settings: 
+#        xbee_device_manager: "xbee_device_manager0"
+#        extended_address: "00:13:A2:00:40:76:75:4F!"
+#        sleep: true
+#        log_level: "DEBUG"       
+
+  - name: edp_upload1
+    driver: devices.edp_upload:EDPUpload
+    settings:
+        interval: 0
+        initial_upload: 0
+        sample_threshold: 1
+        channels:
+#          - "StationDigiLTH_ED0E.*"
+          - "DigiLTH_ECN_*"
+        file_count: 1
+        filename: _ecn_devices_edp_sample
+
+  - name: ecn_formater0
+    driver: custom_devices.ecocity.ecocity_json_formater:EcocityJsonFormater
+    settings:
+        log_level: "DEBUG"
+        channels: 
+          - "DigiLTH_ECN_*"
+        dia_channel_to_ec_sensor:
+          light: luminosity          
+        dia_module_to_ec_pub_key:
+          DigiLTH_ECN_ED0E: StationDigiLTH_ED0E
+          
+#  - name: websocket_s_ecocity_integ0
+#    driver: custom_devices.orange.websocketupload:websocketupload
+#    settings:
+#        activate_tcp_keepalive: true
+#        log_level: DEBUG
+#        read_channel: ecn_formater0.json_data
+#        resource_uri: /ecocity-sbi-entries/pushjson-ws/ecocity-ws/ecn-sbi
+#        server_address: s-ecocity-integ.orange-labs.fr
+#        server_port: 80
+#        websocket_ping_interval: 120
+
+#  - name: ecn_formater_bis
+#    driver: custom_devices.ecocity.ecocity_json_formater:EcocityJsonFormater
+#    settings:
+#        ec_access_point_pub_key: 00000000-00000000-00409DFF-FF510935
+#        log_level: "DEBUG"
+#        channels: 
+#          - "StationDigiLTH_CE19.*"
+#        channel_to_ec_sensor:
+#          light: luminosity          
+#        dia_module_to_ec_pub_key:
+#          StationDigiLTH_CE19: StationDigiLTH
+          
+          
+#  - name: websocket_ecn_dev     
+#    driver: custom_devices.orange.websocketupload:websocketupload
+#    settings:
+#       write_channel: "some_dd.some_channel"
+#       read_channel: "ecn_formater0.json_data"
+#       server_address: "s-m2m-gw.dyndns.org"
+#       server_port: 5079
+#       gateway_dyndns_name_prefix: ecocitya33a       
+#       gateway_dyndns_name_suffix: -gw.dyndns.org
+#       keep_alive_interval: 0
+#       activate_tcp_keepalive: true
+#       resource_uri: "/ecocity-sbi-entries/pushjson-ws/ecocity-ws/ecn-sbi"
+#       log_level: "DEBUG"
+       
+#  - name: blink_on_command0
+#    driver: custom_devices.ecocity.ecocity_blink_on_sample:EcocityBlinkOnSampleDevice
+#    settings:
+#        blinks: 5
+#        blink_speed: 0.2
+#        log_level: "DEBUG"
+#        cli_command: "boot a=r"
+
+presentations:
+   - name: console0
+     driver: presentations.console.console:Console
+
+   - name: web0
+     driver: presentations.web.web:Web
+     settings: 
+        page: "idigi_dia.html"
+
+   - name: rci0
+     driver: presentations.rci.rci_handler:RCIHandler
+
+tracing:
+  filters:
+      - name: "*"
+        level: =critical
+        handlers:
+          - file=log_dia.txt
+        stop: False
+      - name: "*"
+        level: info
+        handlers:
+          - stderr
+        stop: False        
